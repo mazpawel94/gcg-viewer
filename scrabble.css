@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+body {
+    display: flex;
+    
+}
+
+.result {
+    margin: auto auto;
+    min-width: 70vw;
+    display: flex;
+    justify-content: space-around;
+}
+
+.result>players {
+    text-align: center;
+/*    flex-grow: 1;*/
+}
+
+
+#file-input {}
+
+
+canvas {
+    background-image: url(planszapng.PNG);
+    background-repeat: no-repeat;
+    display: block;
+    margin: 30px auto;
+
+}
+
+.gameNavigation {
+    display: block;
+    text-align: center;
+}
+button {
+    font-weight: normal;
+}
+
+#previous {
+    height: 30px;
+    width: 80px;
+}
+
+#next {
+    height: 30px;
+    width: 80px;
+}
+
+#nick {
+    color: brown;
+}
+
+#rack {
+
+    height: 100px;
+    width: 100vh;
+    margin: auto;
+    align-content: center;
+}
+
+li {
+    margin: 0 auto;
+    background-color: #F8E8C7;
+    display: inline-block;
+    box-sizing: border-box;
+    color: #015B52;
+    float: left;
+    font-size: 50px;
+    margin: 10px;
+    height: 65px;
+    width: 65px;
+    border-radius: 10%;
+    text-align: center;
+    margin-left: 10px;
+
+
+}
+
+sub {
+    font-size: 15px;
+}
+
+@media only screen and (max-width: 640px) {
+
+    * {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+
+    }
+
+    #view2 {
+        overflow-x: hidden;
+
+    }
+
+    canvas {
+        transform: scale(0.5) translate(-50%, -50%);
+        display: block;
+        margin: auto;
+        /*        transform: scale(0.5) translate(-47%, -20%);*/
+/*        left: 0;*/
+    }
+    .gameNavigation, #rack, #nick{
+        /*        transform: translate(100%, -700%);*/
+                transform: translateY(-280px);
+                
+            }
+            #rack{
+        /*        transform: translate(0%, -200%);*/
+            }
+            #nick {
+        /*        transform: translate(0%, -1100%);*/
+            }
+            #reset {
+                display: none;
+            }
+            
+        
+        
+            li {
+                width: 40px;
+                height: 40px;
+                font-size: 30px;
+                margin: 3px;
+                text-align: center;
+                
+        
+            }
+        
+    }
+
