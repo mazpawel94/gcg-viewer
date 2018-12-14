@@ -18,8 +18,10 @@ ctx.fillStyle = "#F8E8C7";
 ctx.font = "28px sans-serif bold";
 var x = 23;
 var y = 23;  //coordinates 
-var move = 0;
-var words = [];
+let moveNumber = 0;
+var moves = [];
+const tileWidth = 38;
+// let pointMove;
 const points = {
     'A': 1,
     'Ą': 5,
@@ -56,7 +58,7 @@ const points = {
 };
 
 
-let letterToNumber = function (a) {
+const letterToNumber = function (a) {
     if (!a)
         return;
     if (a.toUpperCase() == "A")
@@ -92,15 +94,15 @@ let letterToNumber = function (a) {
 }
 
 
-let reset = function () {
+const reset = function () {
     x = 23;
     y = 23;
 }
 
 
-let setRack = function () {
-    setNick(words[move].split(" ")[0]);
-    let letters = words[move].split(" ")[1];
+const setRack = function () {
+    setNick(moves[moveNumber].split(" ")[0]);
+    let letters = moves[moveNumber].split(" ")[1];
     let node, textnode, content, sub, textsub;
     for (let i = 0; i < letters.length; i++) {
         node = document.createElement("li");
@@ -115,12 +117,12 @@ let setRack = function () {
 }
 
 
-let setNick = function (n) {
+const setNick = function (n) {
     nick.innerHTML = n.slice(1, -1);
 }
 
 
-let clearRack = function () {
+const clearRack = function () {
     nodes = document.getElementsByTagName("li");
     let l = nodes.length;
     for (let i = 0; i < l; i++) {
@@ -130,7 +132,7 @@ let clearRack = function () {
 }
 
 
-let coordinates = function (c) {
+const coordinates = function (c) {
     let a = c.slice(-1);
     if (isNaN(a)) { // horizontal
         let n = letterToNumber(a);
@@ -142,39 +144,66 @@ let coordinates = function (c) {
 
 }
 
-
-let put = function (index) {
-    reset();
-    let word = words[index].split(" ");
+const decodeMove = (index) => {
     //word[0] - nick, [1] - litery, [2] - współrzędne, [3] - główny wyraz, [4] - punkty za ruch, [5] - suma punktów
-    if (word[2] == "--") {
-        // -- oznacza stratę w poprzednim ruchu
-        clearMove();
-        move++;
-        clearRack();
-        return;
-    } else if (word[2].startsWith("-")) //wymiana w poprzednim ruchu
-        alert("wymiana " + word[2].slice(1));
-    let xy = coordinates(word[2]);
-    if (xy[2]) {
-        x = x + xy[1] * 38;
-        y = y + xy[0] * 38;
-    } else {
-        x = x + xy[0] * 38;
-        y = y + xy[1] * 38;
-    }
+    return moves[index].split(" ");
+}
 
-    //wyświetlanie kolejnych liter w wyrazie w danym ruchu
-    for (let i = 0; i < word[3].length; i++) {
-        let letter = word[3][i];
+const turnOver = function() {
+    clearMove();
+    moveNumber++;
+    clearRack();
+}
+
+// class PointsOnBoard {
+//     constructor(movePoints, x, y) {
+//         this.type = 'pointsOnBoard';
+//         this.movePoints = movePoints;
+//         this.x = x;
+//         this.y = y;
+//     }
+
+//     draw() {
+//         ctx.fillText(this.movePoints,this.x,this.y);
+        
+//     }
+
+//     clear() {
+//         ctx.fillStyle = "transparent";
+//         ctx.fillText(this.movePoints,this.x,this.y);
+//         // ctx.fillRect(this.x, this.y-20, 50, 50);
+//         // ctx.clearRect(this.x, this.y-20, 50, 50);
+//         console.log(this.x, this.y);
+//     }
+    
+// }
+
+    
+
+const drawLettersOnBoard = (moveTab, newMove) => {
+    const word = moveTab[3];
+    const xy = coordinates(moveTab[2]);
+    
+    if (xy[2]) {
+        x = x + xy[1] * tileWidth;
+        y = y + xy[0] * tileWidth;
+    } else {
+        x = x + xy[0] * tileWidth;
+        y = y + xy[1] * tileWidth;
+    }
+    for (let i = 0; i < word.length; i++) {
+        let letter = word[i];
         if (letter == ".") {
 
             //. to litera leżąca na planszy, nie jest rysowana, idziemy dalej pionowo lub poziomo
-            if (xy[2]) x += 38;
-            else y += 38;
+            if (xy[2]) x += tileWidth;
+            else y += tileWidth;
             continue;
         }
-        ctx.fillStyle = "#F8E8C7";
+        if(newMove) 
+            ctx.fillStyle = "#E8E847";
+        else
+            ctx.fillStyle = "#F8E8C7";
         ctx.fillRect(x + 1, y + 1, 36, 36);
         ctx.fillStyle = "#015B52";
         ctx.font = "10px sans-serif";
@@ -185,20 +214,46 @@ let put = function (index) {
         if (letter.toUpperCase() == "W") ctx.fillText(letter.toUpperCase(), x + 6, y + 28);
         else if (letter.toUpperCase() == "I") ctx.fillText(letter.toUpperCase(), x + 16, y + 28);
         else ctx.fillText(letter.toUpperCase(), x + 10, y + 28);
-        if (xy[2]) x += 38;
-        else y += 38;
+        if (xy[2]) x += tileWidth;
+        else y += tileWidth;
 
     }
+    // pointMove = new PointsOnBoard(moveTab[4], x + 10, y + 28);
+    // pointMove.draw();
+    reset();
+}
+
+const move = function (index) {
+    // reset();
+    if(index>0) 
+    {
+        drawLettersOnBoard(decodeMove(index-1), false);
+        // pointMove.clear();
+    }
+    let word = decodeMove(index);
+    
+    if (word[2] == "--") { // -- oznacza stratę w poprzednim ruchu        
+       turnOver();
+        return;
+    }
+    if (word[2].startsWith("-")) //wymiana w poprzednim ruchu
+        alert("wymiana " + word[2].slice(1));
+
+    //wyświetlanie kolejnych liter w wyrazie w danym ruchu
+    drawLettersOnBoard(word, true);
+   
     if (word[4].startsWith("+") || word[4].startsWith("-")) {
         if (word[0].slice(1,-1) == player1) {
             let p = resultPlayer1.innerHTML;
             p = parseInt(p) + parseInt( word[4]);
-            resultPlayer1.innerHTML = p;
+            resultPlayer1.innerHTML = `${p}(${word[4]})`;
+            resultPlayer2.innerHTML = resultPlayer2.innerHTML.split('(')[0];
 
         } else {
              let p = resultPlayer2.innerHTML;
             p = parseInt(p) + parseInt( word[4]);
-            resultPlayer2.innerHTML = p;
+            resultPlayer2.innerHTML =`${p}(${word[4]})`;
+            resultPlayer1.innerHTML = resultPlayer1.innerHTML.split('(')[0];
 
         }
     }
@@ -221,24 +276,27 @@ function findBlanks(word) {
 function clearAll() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    move = 0;
+    moveNumber = 0;
     clearRack();
+    resultPlayer1.innerHTML = 0;
+    resultPlayer2.innerHTML = 0;
+    
 }
 
 
 function next() {
     clearRack();
-    put(move);
-    move++;
+    move(moveNumber);
+    moveNumber++;
     setRack();
 }
 
 
 function clearMove() {
-    move--;
+    moveNumber--;
     clearRack();
     reset();
-    let word = words[move].split(" ");
+    let word = moves[moveNumber].split(" ");
     
     if (word[4].startsWith("+") || word[4].startsWith("-")) {
         if (word[0].slice(1,-1) == player1) {
@@ -257,22 +315,22 @@ function clearMove() {
     
     let xy = coordinates(word[2]);
     if (xy[2]) {
-        x = x + xy[1] * 38;
-        y = y + xy[0] * 38;
+        x = x + xy[1] * tileWidth;
+        y = y + xy[0] * tileWidth;
     } else {
-        x = x + xy[0] * 38;
-        y = y + xy[1] * 38;
+        x = x + xy[0] * tileWidth;
+        y = y + xy[1] * tileWidth;
     }
     for (let i = 0; i < word[3].length; i++) {
         let letter = word[3][i];
         if (letter == ".") {
-            if (xy[2]) x += 38;
-            else y += 38;
+            if (xy[2]) x += tileWidth;
+            else y += tileWidth;
             continue;
         }
-        ctx.clearRect(x, y, 38, 38);
-        if (xy[2]) x += 38;
-        else y += 38;
+        ctx.clearRect(x, y, tileWidth, tileWidth);
+        if (xy[2]) x += tileWidth;
+        else y += tileWidth;
     }
     setRack();
 }
@@ -280,7 +338,7 @@ function clearMove() {
 
 
 function readGame(e) {
-    words = [];
+    moves = [];
     clearAll();
     var game = e.target.files[0];
     if (!game) return 0;
@@ -294,7 +352,7 @@ function readGame(e) {
         players.innerHTML = player1;
         players.innerHTML += " : " + player2;
         for (let i = 2; i < lines.length; i++) {
-            words.push(lines[i]);
+            moves.push(lines[i]);
         }
         setRack();
     }
@@ -306,8 +364,8 @@ function readGame(e) {
 //funkcja do pobierania wprowadzonej przez użytkownika partii
 function downloadGame() {
     let document = "";
-    for (let i = 0; i < words.length; i++) {
-        document += words[i] + "\n";
+    for (let i = 0; i < moves.length; i++) {
+        document += moves[i] + "\n";
     }
     let blob = new Blob([document], {
         type: 'text/gcg'
@@ -328,13 +386,13 @@ var nick2 = document.getElementsByName("player2");
 
 //funkcja do oglądania wprowadzonej ręcznie partii
 function createFile() {
-    words = [];
+    moves = [];
     clearAll();
     let row = "",
         inputs, letters, word, nick, coordinates;
 
-    words[0] = "#player1 " + nick1[0].value + " " + nick1[0].value;
-    words[1] = "#player2 " + nick2[0].value + " " + nick2[0].value;
+    moves[0] = "#player1 " + nick1[0].value + " " + nick1[0].value;
+    moves[1] = "#player2 " + nick2[0].value + " " + nick2[0].value;
     for (let i = 0; i < classes.length; i++) {
         row = "";
         if (!(i % 2)) nick = nick1[0].value;
@@ -354,16 +412,16 @@ function createFile() {
             letters = word.replace(/\./g, "").replace(/\s/g, '').toUpperCase();
         word = findBlanks(word.toUpperCase());
         row += letters + " " + coordinates + word + " +" + inputs[3].value;
-        words.push(row);
+        moves.push(row);
         if (inputs[2].value.startsWith("s(")) {
             row = "";
             row += ">" + nick + ": " + letters + " -- " + "0";
-            words.push(row);
+            moves.push(row);
         }
     }
     view2.style.display = "inline";
     file.style.display = "none";
-    move = 2;
+    moveNumber = 2;
     setRack();
     document.getElementById("download").style.display = "block";
 }
