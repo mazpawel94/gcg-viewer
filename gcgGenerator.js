@@ -1,10 +1,9 @@
 var first = document.getElementById("first");
 var second = document.getElementById("second");
-var nick1 = document.getElementsByName("player1");
-var nick2 = document.getElementsByName("player2");
+// var nick1 = document.getElementsByName("player1");
+// var nick2 = document.getElementsByName("player2");
 var odd = document.getElementsByClassName("odd");
 var even = document.getElementsByClassName("even");
-var ok = document.getElementById("ok");
 var classes = document.getElementsByClassName("move");
 var moves = classes.length / 2;
 var view2 = document.getElementById("view2");

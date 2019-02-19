@@ -52,11 +52,16 @@ button {
     width: 80px;
 }
 
-#nick {
+.nick {
     color: brown;
 }
 
-#rack {
+.racks {
+    display: flex;
+    flex-direction: column;
+    
+}
+.rack {
 
     height: 100px;
     width: 100vh;
@@ -107,32 +112,26 @@ sub {
         /*        transform: scale(0.5) translate(-47%, -20%);*/
 /*        left: 0;*/
     }
-    .gameNavigation, #rack, #nick{
+    .gameNavigation, .racks {
         /*        transform: translate(100%, -700%);*/
                 transform: translateY(-280px);
                 
             }
-            #rack{
-        /*        transform: translate(0%, -200%);*/
+            #rack, #nick{
+                transform: translate(100%, -700%); 
+                transform: translateY(-280px);
             }
-            #nick {
-        /*        transform: translate(0%, -1100%);*/
-            }
+      
             #reset {
                 display: none;
             }
-            
-        
-        
+
             li {
                 width: 40px;
                 height: 40px;
                 font-size: 30px;
                 margin: 3px;
                 text-align: center;
-                
-        
             }
-        
     }
 

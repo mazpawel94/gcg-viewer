@@ -1,25 +1,24 @@
-var canvas = document.querySelector('canvas');
-var button = document.getElementById('next');
-var remove = document.getElementById('reset');
-var previous = document.getElementById('previous');
-var rack = document.getElementById("rack");
-var file = document.getElementById('file-input');
-var nick = document.getElementById("nick");
-var ctx = canvas.getContext("2d");
-var classes = document.getElementsByClassName("move");
-var ok = document.getElementById("ok");
-var player1, player2;
-var resultPlayer1 = document.getElementById("result1");
-var resultPlayer2 = document.getElementById("result2");
+const canvas = document.querySelector('canvas');
+const button = document.getElementById('next');
+const remove = document.getElementById('reset');
+const previous = document.getElementById('previous');
+const rack = document.getElementById("rack");
+const file = document.getElementById('file-input');
+const nick = document.getElementById("nick");
+const ctx = canvas.getContext("2d");
+const ok = document.getElementById("ok");
+let player1, player2;
+const resultPlayer1 = document.getElementById("result1");
+const resultPlayer2 = document.getElementById("result2");
 canvas.width = 593;
 canvas.height = 593;
 ctx.beginPath();
 ctx.fillStyle = "#F8E8C7";
 ctx.font = "28px sans-serif bold";
-var x = 23;
-var y = 23;  //coordinates 
+let x = 23;
+let y = 23;  //coordinates 
 let moveNumber = 0;
-var moves = [];
+let moves = [];
 const tileWidth = 38;
 // let pointMove;
 const points = {
@@ -95,50 +94,53 @@ const letterToNumber = function (a) {
 
 
 const reset = function () {
+
     x = 23;
     y = 23;
 }
 
 
+const createTileOnRack = function (letter) {
+
+    const node = document.createElement("li");
+    const sub = document.createElement("sub");
+    const textnode = document.createTextNode(letter);
+    const textsub = document.createTextNode(points[letter] || "");
+    sub.appendChild(textsub);
+    node.appendChild(textnode);
+    node.appendChild(sub);
+    rack.appendChild(node);
+
+}
+
 const setRack = function () {
-    setNick(moves[moveNumber].split(" ")[0]);
-    let letters = moves[moveNumber].split(" ")[1];
-    let node, textnode, content, sub, textsub;
-    for (let i = 0; i < letters.length; i++) {
-        node = document.createElement("li");
-        sub = document.createElement("sub");
-        textnode = document.createTextNode(letters[i]);
-        textsub = document.createTextNode(points[letters[i]] || "");
-        sub.appendChild(textsub);
-        node.appendChild(textnode);
-        node.appendChild(sub);
-        rack.appendChild(node);
-    }
+    const move = decodeMove(moveNumber);
+    setNick(move[0]);
+    const letters = move[1];
+    [...letters].forEach(letter => createTileOnRack(letter));
 }
 
 
 const setNick = function (n) {
+
     nick.innerHTML = n.slice(1, -1);
 }
 
 
+//funkcja czyszcząca przy każdym >>> stojak
 const clearRack = function () {
     nodes = document.getElementsByTagName("li");
-    let l = nodes.length;
-    for (let i = 0; i < l; i++) {
-        rack.removeChild(nodes.item(0));
-    }
-
+    [...nodes].forEach( node => rack.removeChild(nodes.item(0)));
 }
 
 
 const coordinates = function (c) {
-    let a = c.slice(-1);
+    const a = c.slice(-1);
     if (isNaN(a)) { // horizontal
-        let n = letterToNumber(a);
+        const n = letterToNumber(a);
         return [c.slice(0, -1) - 1, n, 1];
     } else { // vertical
-        let n = letterToNumber(c[0]);
+        const n = letterToNumber(c[0]);
         return [n, c.slice(1, ) - 1, 0];
     }
 
@@ -178,45 +180,56 @@ const turnOver = function() {
     
 // }
 
-    
+const putStartCoordinates = function (xy) {
 
-const drawLettersOnBoard = (moveTab, newMove) => {
-    const word = moveTab[3];
-    const xy = coordinates(moveTab[2]);
-    
+    let horizontal = true;
     if (xy[2]) {
         x = x + xy[1] * tileWidth;
         y = y + xy[0] * tileWidth;
     } else {
         x = x + xy[0] * tileWidth;
         y = y + xy[1] * tileWidth;
+        horizontal = false;
     }
+    return [x,y, horizontal];
+}
+
+const drawLetterOnBoard = function(newMove, x, y, letter) {
+
+    if(newMove) 
+        ctx.fillStyle = "#E8E847";
+    else
+        ctx.fillStyle = "#F8E8C7";
+    ctx.fillRect(x + 1, y + 1, 36, 36);
+    ctx.fillStyle = "#015B52";
+    ctx.font = "10px sans-serif";
+    let point = points[letter] || "";
+    if (point == "") ctx.fillStyle = "rgba(1, 91, 82, 0.2)";
+    ctx.fillText(point, x + 30, y + 35);
+    ctx.font = "bold 28px sans-serif";
+    if (letter.toUpperCase() == "W") ctx.fillText(letter.toUpperCase(), x + 6, y + 28);
+    else if (letter.toUpperCase() == "I") ctx.fillText(letter.toUpperCase(), x + 16, y + 28);
+    else ctx.fillText(letter.toUpperCase(), x + 10, y + 28);
+
+}
+
+const drawLettersOnBoard = (moveTab, newMove) => {
+
+    const word = moveTab[3];
+    const xy = putStartCoordinates(coordinates(moveTab[2]));
+    let x = xy[0];
+    let y = xy[1];
+    let horizontal = xy[2];
     for (let i = 0; i < word.length; i++) {
         let letter = word[i];
-        if (letter == ".") {
-
-            //. to litera leżąca na planszy, nie jest rysowana, idziemy dalej pionowo lub poziomo
-            if (xy[2]) x += tileWidth;
+        if (letter == ".") {  //. to litera leżąca na planszy, nie jest rysowana, idziemy dalej pionowo lub poziomo
+            if (horizontal) x += tileWidth;
             else y += tileWidth;
             continue;
         }
-        if(newMove) 
-            ctx.fillStyle = "#E8E847";
-        else
-            ctx.fillStyle = "#F8E8C7";
-        ctx.fillRect(x + 1, y + 1, 36, 36);
-        ctx.fillStyle = "#015B52";
-        ctx.font = "10px sans-serif";
-        let point = points[letter] || "";
-        if (point == "") ctx.fillStyle = "rgba(1, 91, 82, 0.2)";
-        ctx.fillText(point, x + 30, y + 35);
-        ctx.font = "bold 28px sans-serif";
-        if (letter.toUpperCase() == "W") ctx.fillText(letter.toUpperCase(), x + 6, y + 28);
-        else if (letter.toUpperCase() == "I") ctx.fillText(letter.toUpperCase(), x + 16, y + 28);
-        else ctx.fillText(letter.toUpperCase(), x + 10, y + 28);
-        if (xy[2]) x += tileWidth;
+        drawLetterOnBoard(newMove, x, y, letter);
+        if (horizontal) x += tileWidth;
         else y += tileWidth;
-
     }
     // pointMove = new PointsOnBoard(moveTab[4], x + 10, y + 28);
     // pointMove.draw();
@@ -224,7 +237,7 @@ const drawLettersOnBoard = (moveTab, newMove) => {
 }
 
 const move = function (index) {
-    // reset();
+    reset();
     if(index>0) 
     {
         drawLettersOnBoard(decodeMove(index-1), false);
@@ -284,6 +297,7 @@ function clearAll() {
 }
 
 
+//funkcja obsługująca kliknięcie w klawisz >>>
 function next() {
     clearRack();
     move(moveNumber);
@@ -297,7 +311,6 @@ function clearMove() {
     clearRack();
     reset();
     let word = moves[moveNumber].split(" ");
-    
     if (word[4].startsWith("+") || word[4].startsWith("-")) {
         if (word[0].slice(1,-1) == player1) {
             let p = resultPlayer1.innerHTML;
@@ -340,12 +353,12 @@ function clearMove() {
 function readGame(e) {
     moves = [];
     clearAll();
-    var game = e.target.files[0];
+    const game = e.target.files[0];
     if (!game) return 0;
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = function (e) {
-        var content = e.target.result;
-        var lines = content.split('\n');
+        const content = e.target.result;
+        const lines = content.split('\n');
         let players = document.getElementById("players");
         player1 = lines[0].split(" ")[1];
         player2 = lines[1].split(" ")[1];
@@ -380,8 +393,8 @@ function downloadGame() {
     
 }
 
-var nick1 = document.getElementsByName("player1");
-var nick2 = document.getElementsByName("player2");
+const nick1 = document.getElementsByName("player1");
+const nick2 = document.getElementsByName("player2");
 
 
 //funkcja do oglądania wprowadzonej ręcznie partii
@@ -426,9 +439,18 @@ function createFile() {
     document.getElementById("download").style.display = "block";
 }
 
-ok.addEventListener("click", createFile);
+// ok.addEventListener("click", createFile);
 button.addEventListener("click", next);
 remove.addEventListener("click", clearAll);
 previous.addEventListener("click", clearMove);
 file.addEventListener("input", readGame);
-document.getElementById("download").addEventListener("click", downloadGame);
+// document.getElementById("download").addEventListener("click", downloadGame);
+
+document.body.querySelector('#complete-game').addEventListener("click", function () {
+    let content = document.getElementById("view2");
+    if (content.style.display == "block") content.style.display = "none";
+    else content.style.display = "block";
+    // document.getElementById("view1").style.display = "none";
+    this.style.display = "none";
+    // opt2.style.display = "none";
+})
