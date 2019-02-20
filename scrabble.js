@@ -2,9 +2,10 @@ const canvas = document.querySelector('canvas');
 const button = document.getElementById('next');
 const remove = document.getElementById('reset');
 const previous = document.getElementById('previous');
-const rack = document.getElementById("rack");
+const rack = document.querySelectorAll(".rack")[0];
+const rack2 = document.querySelectorAll(".rack")[1];
 const file = document.getElementById('file-input');
-const nick = document.getElementById("nick");
+const nick = document.querySelector(".nick");
 const ctx = canvas.getContext("2d");
 const ok = document.getElementById("ok");
 let player1, player2;
@@ -126,11 +127,28 @@ const setNick = function (n) {
     nick.innerHTML = n.slice(1, -1);
 }
 
+const setOldRack = function (nodes) {
+
+    const oldNodes = document.querySelectorAll(".previous li");
+    [...oldNodes].forEach(node => rack2.removeChild(node));
+    let word = decodeMove(moveNumber)[3].split('');
+    [...nodes].forEach( node =>  {
+        if(word.indexOf(node.textContent[0])!==-1) {
+            node.style.backgroundColor="gray";
+            delete word[word.indexOf(node.textContent[0])];
+        }
+        rack2.appendChild(node);
+    });
+    rack2.querySelector('p').textContent = nick.innerHTML;
+}
 
 //funkcja czyszcząca przy każdym >>> stojak
 const clearRack = function () {
-    nodes = document.getElementsByTagName("li");
-    [...nodes].forEach( node => rack.removeChild(nodes.item(0)));
+
+    const nodes = document.querySelectorAll(".actual li");
+    [...nodes].forEach( node => rack.removeChild(node));
+    setOldRack(nodes);
+    rack2.querySelector('p').textContent = nick.innerHTML;
 }
 
 
@@ -289,8 +307,8 @@ function findBlanks(word) {
 function clearAll() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if(moveNumber) clearRack();
     moveNumber = 0;
-    clearRack();
     resultPlayer1.innerHTML = 0;
     resultPlayer2.innerHTML = 0;
     

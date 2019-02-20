@@ -117,7 +117,7 @@ sub {
                 transform: translateY(-280px);
                 
             }
-            #rack, #nick{
+            .rack{
                 transform: translate(100%, -700%); 
                 transform: translateY(-280px);
             }
