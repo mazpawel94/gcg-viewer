@@ -14,16 +14,16 @@ body {
     margin: auto auto;
     min-width: 70vw;
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 10px 0 10px 0;
 }
 
-.result>players {
+.result div {
+    width: 50vw;
     text-align: center;
-/*    flex-grow: 1;*/
 }
 
 
-#file-input {}
 
 
 canvas {
@@ -75,7 +75,6 @@ li {
     display: inline-block;
     box-sizing: border-box;
     color: #015B52;
-    float: left;
     font-size: 50px;
     margin: 10px;
     height: 65px;

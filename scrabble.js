@@ -1,7 +1,7 @@
 const canvas = document.querySelector('canvas');
-const button = document.getElementById('next');
+const nextButton = document.getElementById('next');
 const remove = document.getElementById('reset');
-const previous = document.getElementById('previous');
+const previousButton = document.getElementById('previous');
 const rack = document.querySelectorAll(".rack")[0];
 const rack2 = document.querySelectorAll(".rack")[1];
 const file = document.getElementById('file-input');
@@ -124,7 +124,7 @@ const setRack = function () {
 
 const setNick = function (n) {
 
-    nick.innerHTML = n.slice(1, -1);
+    nick.innerHTML = n.slice(1, -1).replace(/_/g, ' ');
 }
 
 const setOldRack = function (nodes) {
@@ -274,7 +274,7 @@ const move = function (index) {
     drawLettersOnBoard(word, true);
    
     if (word[4].startsWith("+") || word[4].startsWith("-")) {
-        if (word[0].slice(1,-1) == player1) {
+        if (word[0].slice(1,-1).replace(/_/g, ' ') == player1) {
             let p = resultPlayer1.innerHTML;
             p = parseInt(p) + parseInt( word[4]);
             resultPlayer1.innerHTML = `${p}(${word[4]})`;
@@ -327,6 +327,8 @@ function next() {
 function clearMove() {
     moveNumber--;
     clearRack();
+    const oldNodes = document.querySelectorAll(".previous li");
+    [...oldNodes].forEach(node => rack2.removeChild(node));
     reset();
     let word = moves[moveNumber].split(" ");
     if (word[4].startsWith("+") || word[4].startsWith("-")) {
@@ -377,11 +379,11 @@ function readGame(e) {
     reader.onload = function (e) {
         const content = e.target.result;
         const lines = content.split('\n');
-        let players = document.getElementById("players");
-        player1 = lines[0].split(" ")[1];
-        player2 = lines[1].split(" ")[1];
-        players.innerHTML = player1;
-        players.innerHTML += " : " + player2;
+        const players = document.querySelectorAll(".players");
+        player1 = lines[0].split(" ")[1].replace(/_/g, ' ');
+        player2 = lines[1].split(" ")[1].replace(/_/g, ' ');
+        players[0].innerHTML = player1;
+        players[1].innerHTML = player2;
         for (let i = 2; i < lines.length; i++) {
             moves.push(lines[i]);
         }
@@ -458,9 +460,9 @@ function createFile() {
 }
 
 // ok.addEventListener("click", createFile);
-button.addEventListener("click", next);
+nextButton.addEventListener("click", next);
 remove.addEventListener("click", clearAll);
-previous.addEventListener("click", clearMove);
+previousButton.addEventListener("click", clearMove);
 file.addEventListener("input", readGame);
 // document.getElementById("download").addEventListener("click", downloadGame);
 
