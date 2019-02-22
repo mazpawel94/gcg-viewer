@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    
+        .rack {
+            display: flex;
+            width: 800px;
+            height: 130px;
+            justify-content: space-around;
+            align-items: center;
+           background-color: chocolate
+        }
+        .letter {
+            width: 50px;
+            height: 50px;
+            background-color: bisque;
+            color: darkgreen;
+            line-height: 50px;
+            font-size: 30px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+/*            position: fixed;*/
+        }
+    </style>
+</head>
+<body>
+   <div class="rack">
+       <div class="letter">A</div>
+       <div class="letter">B</div>
+       <div class="letter">C</div>
+       <div class="letter">D</div>
+       <div class="letter">E</div>
+       <div class="letter">F</div>
+       <div class="letter">G</div>
+   </div>
+   <div>
+       
+   </div>
+    <script>
+        const divs = document.querySelectorAll('.letter');
+        let active = true;
+        let innerX, innerY, startX, startY;
+        const place = 800/7;
+        let actualDiv = document.createElement('div');
+         
+        document.addEventListener('mousemove', (e)=> {
+            if(active){
+                
+                console.log(e.clientX, innerX);
+                console.log(e.clientX, innerX);
+                // div.style.top = `${e.clientY-innerY}px`;
+                actualDiv.style.left =`${e.clientX-startX}px`;
+                actualDiv.style.top =`${e.clientY-startY}px`;
+            }
+            
+        })       
+        divs.forEach((div) => {
+             div.addEventListener('mousedown', (e)=> { //wciśnięcie
+            active = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            div.style.backgroundColor = "gray";
+            actualDiv = div;
+            innerX = e.offsetX;
+            innerY = e.offsetY;
+
+            console.log(innerX, startX);
+            div.style.zIndex='100';
+        })
+
+        
+        div.addEventListener('mouseup', (e)=> {
+            active = false;
+            console.log("mouseup");
+            div.style.backgroundColor = "bisque";
+             div.style.top = "0";
+            div.style.left =`${Math.round((e.clientX-startX)/place)*place}px`;
+            [...divs].forEach(e => e.style.zIndex = 0);
+        })
+        
+        div.addEventListener('mouseover', (e)=> {
+            // active = false;
+            // startX = e.clientX;
+            console.log("over");
+        })
+        })
+       
+        
+        
+        
+        
+    </script>
+</body>
+</html>

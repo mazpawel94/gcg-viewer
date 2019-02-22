@@ -7,7 +7,6 @@ const rack2 = document.querySelectorAll(".rack")[1];
 const file = document.getElementById('file-input');
 const nick = document.querySelector(".nick");
 const ctx = canvas.getContext("2d");
-const ok = document.getElementById("ok");
 let player1, player2;
 const resultPlayer1 = document.getElementById("result1");
 const resultPlayer2 = document.getElementById("result2");
@@ -133,6 +132,7 @@ const setOldRack = function (nodes) {
     [...oldNodes].forEach(node => rack2.removeChild(node));
     let word = decodeMove(moveNumber)[3].split('');
     [...nodes].forEach( node =>  {
+    console.log(word, node.textContent[0]);
         if(word.indexOf(node.textContent[0])!==-1) {
             node.style.backgroundColor="gray";
             delete word[word.indexOf(node.textContent[0])];
