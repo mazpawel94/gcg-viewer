@@ -43,22 +43,33 @@
    </div>
     <script>
         const divs = document.querySelectorAll('.letter');
-        let active = true;
+        let active = false;
         let innerX, innerY, startX, startY;
         const place = 800/7;
         let actualDiv = document.createElement('div');
-         
+        let actualDivStartX, actualDivStartY, actualDivStartOrder;
         document.addEventListener('mousemove', (e)=> {
             if(active){
-                
-                console.log(e.clientX, innerX);
-                console.log(e.clientX, innerX);
-                // div.style.top = `${e.clientY-innerY}px`;
-                actualDiv.style.left =`${e.clientX-startX}px`;
-                actualDiv.style.top =`${e.clientY-startY}px`;
+                if(!actualDivStartX) actualDivStartX = 0;
+                if(!actualDivStartY) actualDivStartY = 0;
+                actualDiv.style.left =`${(e.clientX-startX + parseInt(actualDivStartX)) - (parseInt(actualDiv.style.order)-actualDivStartOrder)*place}px`;
+                actualDiv.style.top =`${e.clientY-startY + parseInt(actualDivStartY)}px`;
+                reorganizeTiles(actualDiv, e.clientX-startX + parseInt(actualDivStartX))
             }
             
-        })       
+        });
+
+        const reorganizeTiles = (tile, distance) => {
+            let orderIndex = actualDivStartOrder + Math.round((distance - 58)/place);
+            console.log(orderIndex, tile);
+            tile.style.order = orderIndex;
+            // divs[orderIndex].style.order = 0;
+            [...divs].forEach(e => {
+                if (parseInt(e.style.order) === orderIndex && e!==tile) 
+                    e.style.order = parseInt(e.style.order) - 1;
+            });
+        }
+        [...divs].forEach( (e, index) => e.style.order = index);
         divs.forEach((div) => {
              div.addEventListener('mousedown', (e)=> { //wciśnięcie
             active = true;
@@ -66,12 +77,17 @@
             startY = e.clientY;
             div.style.backgroundColor = "gray";
             actualDiv = div;
+            actualDivStartX = div.style.left.replace('px', '');
+            actualDivStartY = div.style.top.replace('px', '');
+            actualDivStartOrder = parseInt(div.style.order);
+            // console.log(actualDivStartX, actualDivStartY);
             innerX = e.offsetX;
             innerY = e.offsetY;
 
-            console.log(innerX, startX);
+            
             div.style.zIndex='100';
         })
+
 
         
         div.addEventListener('mouseup', (e)=> {
@@ -79,8 +95,9 @@
             console.log("mouseup");
             div.style.backgroundColor = "bisque";
              div.style.top = "0";
-            div.style.left =`${Math.round((e.clientX-startX)/place)*place}px`;
-            [...divs].forEach(e => e.style.zIndex = 0);
+            div.style.left ="0";
+            // div.style.left =`${Math.round((e.clientX-startX+ parseInt(actualDivStartX))/place)*place}px`;
+            [...divs].forEach(e => e.style.zIndex = 1);
         })
         
         div.addEventListener('mouseover', (e)=> {
