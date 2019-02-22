@@ -332,7 +332,7 @@ function clearMove() {
     reset();
     let word = moves[moveNumber].split(" ");
     if (word[4].startsWith("+") || word[4].startsWith("-")) {
-        if (word[0].slice(1,-1) == player1) {
+        if (word[0].slice(1,-1).replace(/_/g, ' ') == player1) {
             let p = resultPlayer1.innerHTML;
             p = parseInt(p) - parseInt( word[4]);
             resultPlayer1.innerHTML = p;
