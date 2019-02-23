@@ -7,7 +7,7 @@
     
         .rack {
             display: flex;
-            width: 800px;
+            width: 600px;
             height: 130px;
             justify-content: space-around;
             align-items: center;
@@ -38,76 +38,69 @@
        <div class="letter">F</div>
        <div class="letter">G</div>
    </div>
-   <div>
-       
-   </div>
+ 
     <script>
-        const divs = document.querySelectorAll('.letter');
-        let active = false;
-        let innerX, innerY, startX, startY;
-        const place = 800/7;
-        let actualDiv = document.createElement('div');
-        let actualDivStartX, actualDivStartY, actualDivStartOrder;
-        document.addEventListener('mousemove', (e)=> {
+
+        const letters = document.querySelectorAll('.letter');
+        let active = false, startX, startY, actualDiv, ctualDivStartX, actualDivStartY, actualDivStartOrder;
+        const place = 600/7;
+        [...letters].forEach( (e, index) => e.style.order = index);
+
+        const convertOrderToInt = (order) => {
+            return parseInt(order.replace('px', ''));
+        }
+
+        const dragLetter =  (e) => {
+
             if(active){
                 if(!actualDivStartX) actualDivStartX = 0;
                 if(!actualDivStartY) actualDivStartY = 0;
-                actualDiv.style.left =`${(e.clientX-startX + parseInt(actualDivStartX)) - (parseInt(actualDiv.style.order)-actualDivStartOrder)*place}px`;
-                actualDiv.style.top =`${e.clientY-startY + parseInt(actualDivStartY)}px`;
-                reorganizeTiles(actualDiv, e.clientX-startX + parseInt(actualDivStartX))
+                actualDiv.style.left =`${e.clientX-startX + actualDivStartX - (convertOrderToInt(actualDiv.style.order)-actualDivStartOrder)*place}px`;
+                actualDiv.style.top =`${e.clientY-startY + actualDivStartY}px`;
+                reorganizeTiles(actualDiv, e.clientX-startX + parseInt(actualDivStartX));
             }
-            
-        });
+        }
 
         const reorganizeTiles = (tile, distance) => {
-            let orderIndex = actualDivStartOrder + Math.round((distance - 58)/place);
-            console.log(orderIndex, tile);
-            tile.style.order = orderIndex;
-            // divs[orderIndex].style.order = 0;
-            [...divs].forEach(e => {
+
+            let actualOrder = convertOrderToInt(tile.style.order);
+            let orderIndex = actualDivStartOrder + Math.round((distance)/place);
+            if(orderIndex !== actualOrder) {
+                tile.style.order = orderIndex;
+                [...letters].forEach(e => {
                 if (parseInt(e.style.order) === orderIndex && e!==tile) 
-                    e.style.order = parseInt(e.style.order) - 1;
+                    e.style.order = actualOrder;
             });
+            actualDiv.style.left = 0;
+            }
         }
-        [...divs].forEach( (e, index) => e.style.order = index);
-        divs.forEach((div) => {
-             div.addEventListener('mousedown', (e)=> { //wciśnięcie
+
+        const activateLetter = (e) => {
+
             active = true;
             startX = e.clientX;
             startY = e.clientY;
-            div.style.backgroundColor = "gray";
-            actualDiv = div;
-            actualDivStartX = div.style.left.replace('px', '');
-            actualDivStartY = div.style.top.replace('px', '');
-            actualDivStartOrder = parseInt(div.style.order);
-            // console.log(actualDivStartX, actualDivStartY);
-            innerX = e.offsetX;
-            innerY = e.offsetY;
+            e.target.style.backgroundColor = "gray";
+            actualDiv = e.target;
+            actualDivStartX = convertOrderToInt(e.target.style.left);
+            actualDivStartY = convertOrderToInt(e.target.style.top);
+            actualDivStartOrder = convertOrderToInt(e.target.style.order);      
+            e.target.style.zIndex='100';
+        }
 
-            
-            div.style.zIndex='100';
-        })
-
-
-        
-        div.addEventListener('mouseup', (e)=> {
+        const dropLetter = (e) => {
             active = false;
-            console.log("mouseup");
-            div.style.backgroundColor = "bisque";
-             div.style.top = "0";
-            div.style.left ="0";
-            // div.style.left =`${Math.round((e.clientX-startX+ parseInt(actualDivStartX))/place)*place}px`;
-            [...divs].forEach(e => e.style.zIndex = 1);
-        })
-        
-        div.addEventListener('mouseover', (e)=> {
-            // active = false;
-            // startX = e.clientX;
-            console.log("over");
-        })
-        })
-       
-        
+            e.target.style.backgroundColor = "bisque";
+            e.target.style.top = "0";
+            e.target.style.left ="0";
+            [...letters].forEach(letter => letter.style.zIndex = 1);
+        }
+
+        letters.forEach((div) => {
+             div.addEventListener('mousedown', activateLetter);
+             div.addEventListener('mouseup', dropLetter);
+        });   
+        document.addEventListener('mousemove', dragLetter);
         
         
         
