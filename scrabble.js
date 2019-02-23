@@ -3,6 +3,7 @@ const nextButton = document.getElementById('next');
 const remove = document.getElementById('reset');
 const previousButton = document.getElementById('previous');
 const rack = document.querySelectorAll(".rack")[0];
+const ul = rack.querySelector("ul");
 const rack2 = document.querySelectorAll(".rack")[1];
 const file = document.getElementById('file-input');
 const nick = document.querySelector(".nick");
@@ -109,7 +110,7 @@ const createTileOnRack = function (letter) {
     sub.appendChild(textsub);
     node.appendChild(textnode);
     node.appendChild(sub);
-    rack.appendChild(node);
+    ul.appendChild(node);
 
 }
 
@@ -118,7 +119,15 @@ const setRack = function () {
     setNick(move[0]);
     const letters = move[1];
     [...letters].forEach(letter => createTileOnRack(letter));
+    [...document.querySelectorAll('.actual li')].forEach( (e, index) => e.style.order = index);
+    [...document.querySelectorAll('.actual li')].forEach((div) => {
+        div.addEventListener('mousedown', activateLetter);
+        div.addEventListener('touchstart', touchActivateLetter);
+        div.addEventListener('mouseup', dropLetter);
+        div.addEventListener('touchend', dropLetter);
+   });
 }
+
 
 
 const setNick = function (n) {
@@ -146,7 +155,7 @@ const setOldRack = function (nodes) {
 const clearRack = function () {
 
     const nodes = document.querySelectorAll(".actual li");
-    [...nodes].forEach( node => rack.removeChild(node));
+    [...nodes].forEach( node => ul.removeChild(node));
     setOldRack(nodes);
     rack2.querySelector('p').textContent = nick.innerHTML;
 }

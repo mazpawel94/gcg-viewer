@@ -5,8 +5,9 @@
     <title>Document</title>
     <style>
     
-        .rack {
+        ul {
             display: flex;
+            list-style: none;
             width: 600px;
             height: 130px;
             justify-content: space-around;
@@ -30,18 +31,27 @@
 </head>
 <body>
    <div class="rack">
-       <div class="letter">A</div>
+       <ul>
+           <li class="letter">P</li>
+           <li class="letter">O</li>
+           <li class="letter">L</li>
+           <li class="letter">A</li>
+           <li class="letter">N</li>
+           <li class="letter">I</li>
+           <li class="letter">E</li>
+       </ul>
+       <!-- <div class="letter">A</div>
        <div class="letter">B</div>
        <div class="letter">C</div>
        <div class="letter">D</div>
        <div class="letter">E</div>
        <div class="letter">F</div>
-       <div class="letter">G</div>
+       <div class="letter">G</div> -->
    </div>
  
     <script>
 
-        const letters = document.querySelectorAll('.letter');
+        const letters = document.getElementsByClassName('letter');
         let active = false, startX, startY, actualDiv, ctualDivStartX, actualDivStartY, actualDivStartOrder;
         const place = 600/7;
         [...letters].forEach( (e, index) => e.style.order = index);
@@ -96,7 +106,7 @@
             [...letters].forEach(letter => letter.style.zIndex = 1);
         }
 
-        letters.forEach((div) => {
+        [...letters].forEach((div) => {
              div.addEventListener('mousedown', activateLetter);
              div.addEventListener('mouseup', dropLetter);
         });   
