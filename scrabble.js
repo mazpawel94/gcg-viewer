@@ -140,19 +140,18 @@ const setOldRack = function (nodes) {
 
     const oldNodes = document.querySelectorAll(".previous li");
     [...oldNodes].forEach(node => ul2.removeChild(node));
-    let word = decodeMove(moveNumber)[3].split('');
+    let word = decodeMove(moveNumber)[3].replace(/[a-z]/g, '?').split('');
     [...nodes].forEach( node =>  {
         if(word.indexOf(node.textContent[0])!==-1) {
             node.style.backgroundColor="gray";
-            node.classList.add('old');
             delete word[word.indexOf(node.textContent[0])];
         }
+        node.classList.add('old');
         ul2.appendChild(node);
     });
     rack2.querySelector('p').textContent = nick.innerHTML;
 }
 
-//funkcja czyszcząca przy każdym >>> stojak
 const clearRack = function () {
 
     const nodes = document.querySelectorAll(".actual li");
@@ -315,7 +314,7 @@ function clearMove() {
     moveNumber--;
     clearRack();
     const oldNodes = document.querySelectorAll(".previous li");
-    [...oldNodes].forEach(node => rack2.removeChild(node));
+    [...oldNodes].forEach(node => ul2.removeChild(node));
     reset();
     let word = moves[moveNumber].split(" ");
     if (word[4].startsWith("+") || word[4].startsWith("-")) {
