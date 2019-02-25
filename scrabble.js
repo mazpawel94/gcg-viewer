@@ -5,6 +5,7 @@ const previousButton = document.getElementById('previous');
 const rack = document.querySelectorAll(".rack")[0];
 const ul = rack.querySelector("ul");
 const rack2 = document.querySelectorAll(".rack")[1];
+const ul2 = rack2.querySelector("ul");
 const file = document.getElementById('file-input');
 const nick = document.querySelector(".nick");
 const ctx = canvas.getContext("2d");
@@ -138,15 +139,15 @@ const setNick = function (n) {
 const setOldRack = function (nodes) {
 
     const oldNodes = document.querySelectorAll(".previous li");
-    [...oldNodes].forEach(node => rack2.removeChild(node));
+    [...oldNodes].forEach(node => ul2.removeChild(node));
     let word = decodeMove(moveNumber)[3].split('');
     [...nodes].forEach( node =>  {
-    console.log(word, node.textContent[0]);
         if(word.indexOf(node.textContent[0])!==-1) {
             node.style.backgroundColor="gray";
+            node.classList.add('old');
             delete word[word.indexOf(node.textContent[0])];
         }
-        rack2.appendChild(node);
+        ul2.appendChild(node);
     });
     rack2.querySelector('p').textContent = nick.innerHTML;
 }
@@ -183,29 +184,6 @@ const turnOver = function() {
     moveNumber++;
     clearRack();
 }
-
-// class PointsOnBoard {
-//     constructor(movePoints, x, y) {
-//         this.type = 'pointsOnBoard';
-//         this.movePoints = movePoints;
-//         this.x = x;
-//         this.y = y;
-//     }
-
-//     draw() {
-//         ctx.fillText(this.movePoints,this.x,this.y);
-        
-//     }
-
-//     clear() {
-//         ctx.fillStyle = "transparent";
-//         ctx.fillText(this.movePoints,this.x,this.y);
-//         // ctx.fillRect(this.x, this.y-20, 50, 50);
-//         // ctx.clearRect(this.x, this.y-20, 50, 50);
-//         console.log(this.x, this.y);
-//     }
-    
-// }
 
 const putStartCoordinates = function (xy) {
 

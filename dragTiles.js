@@ -1,9 +1,10 @@
-// const nodes = document.querySelectorAll(".actual li");
 
-const letters = document.getElementsByTagName('.actual li');
 let active = false, startX, startY, actualDiv, ctualDivStartX, actualDivStartY, actualDivStartOrder;
-const place = 320/7;
-
+// const place = 600/7;
+let place = 75;
+if(window.innerWidth <= 800 && window.innerHeight <= 600) {
+place = 50;
+}
 const convertOrderToInt = (order) => {
     return parseInt(order.replace('px', ''));
 }
@@ -35,6 +36,7 @@ const reorganizeTiles = (tile, distance) => {
 
     let actualOrder = convertOrderToInt(tile.style.order);
     let orderIndex = actualDivStartOrder + Math.round((distance)/place);
+    if (orderIndex>=document.querySelectorAll('.actual li').length || orderIndex<0) return;
     if(orderIndex !== actualOrder) {
         tile.style.order = orderIndex;
         [...document.querySelectorAll('.actual li')].forEach(e => {
@@ -46,8 +48,8 @@ const reorganizeTiles = (tile, distance) => {
 }
 
 const activateLetter = (e) => {
-    console.log('activateLetter');
 
+    if(e.target.classList.contains('old')) return;
     active = true;
     startX = e.clientX;
     startY = e.clientY;
@@ -59,8 +61,8 @@ const activateLetter = (e) => {
 }
 
 const touchActivateLetter = (e) => {
-    console.log('activateLetter');
 
+    if(e.target.classList.contains('old')) return;
     active = true;
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
