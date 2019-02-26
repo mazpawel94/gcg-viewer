@@ -12,6 +12,8 @@ const ctx = canvas.getContext("2d");
 let player1, player2;
 const resultPlayer1 = document.getElementById("result1");
 const resultPlayer2 = document.getElementById("result2");
+const deletionLetter = document.body.querySelectorAll('.deletion-letter');
+const deletion = document.body.querySelector('.deletion');
 canvas.width = 593;
 canvas.height = 593;
 ctx.beginPath();
@@ -161,6 +163,16 @@ const clearRack = function () {
 }
 
 
+const deleteLetterInDeletion = (letter) => {
+        console.log(letter);
+    if(letter === '+' || letter === '0')  return;
+    letter = letter.replace(/[a-ząężćźżłńóś]/, '')
+    const change = [...deletionLetter].filter(e => !e.classList.contains('deleted'))
+                                      .find(e => e.textContent === letter);
+    change.classList.add('deleted');
+}
+
+
 const coordinates = function (c) {
     const a = c.slice(-1);
     if (isNaN(a)) { // horizontal
@@ -232,6 +244,7 @@ const drawLettersOnBoard = (moveTab, newMove) => {
             continue;
         }
         drawLetterOnBoard(newMove, x, y, letter);
+        if(newMove) deleteLetterInDeletion(letter);
         if (horizontal) x += tileWidth;
         else y += tileWidth;
     }
@@ -460,3 +473,5 @@ document.body.querySelector('#complete-game').addEventListener("click", function
     this.style.display = "none";
     // opt2.style.display = "none";
 })
+document.body.querySelector('.deletion-show').addEventListener('click', () => deletion.classList.toggle('active'));
+// deletionLetter.forEach(e => e.addEventListener('click', deleteLetterInDeletion));

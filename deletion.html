@@ -130,11 +130,11 @@
         <div class="deletion-letter">W</div>
         <div class="deletion-letter">W</div>
         <div class="deletion-letter">W</div>
-        <div class="deletion-letter">W</div>
         <div class="deletion-letter">Y</div>
         <div class="deletion-letter">Y</div>
         <div class="deletion-letter">Y</div>
         <div class="deletion-letter">Y</div>
+        <div class="deletion-letter">Z</div>
         <div class="deletion-letter">Z</div>
         <div class="deletion-letter">Z</div>
         <div class="deletion-letter">Z</div>
@@ -149,7 +149,7 @@
     const deletionLetter = document.body.querySelectorAll('.deletion-letter');
 
     const deleteLetterInDeletion = (tile) => {
-        
+
         const letter = tile.target.textContent;
         console.log([...deletionLetter].indexOf(tile.target));
         const change = [...deletionLetter].filter(e => !e.classList.contains('deleted'))
