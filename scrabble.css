@@ -108,6 +108,7 @@ sub {
     width: 400px;
     height: 400px;
     user-select: none;
+    background-color: rgb(75, 75, 75);
 }
 
 .deletion-letter {

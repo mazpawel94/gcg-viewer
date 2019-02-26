@@ -164,13 +164,23 @@ const clearRack = function () {
 
 
 const deleteLetterInDeletion = (letter) => {
-        console.log(letter);
     if(letter === '+' || letter === '0')  return;
     letter = letter.replace(/[a-ząężćźżłńóś]/, '')
     const change = [...deletionLetter].filter(e => !e.classList.contains('deleted'))
                                       .find(e => e.textContent === letter);
     change.classList.add('deleted');
 }
+
+
+const addLetterInDeletion = (letter) => {   //cofa skreślenie - przy cofaniu ruchu
+
+    if(letter === '+' || letter === '0' || letter ==='.')  return;
+    letter = letter.replace(/[a-ząężćźżłńóś]/, '')
+    const change = [...deletionLetter].filter(e => e.classList.contains('deleted'))
+                                      .find(e => e.textContent === letter);
+    change.classList.remove('deleted');
+}
+
 
 
 const coordinates = function (c) {
@@ -330,6 +340,7 @@ function clearMove() {
     [...oldNodes].forEach(node => ul2.removeChild(node));
     reset();
     let word = moves[moveNumber].split(" ");
+    [...word[3]].forEach(letter => addLetterInDeletion(letter));
     if (word[4].startsWith("+") || word[4].startsWith("-")) {
         if (word[0].slice(1,-1).replace(/_/g, ' ') == player1) {
             let p = resultPlayer1.innerHTML;
@@ -474,4 +485,3 @@ document.body.querySelector('#complete-game').addEventListener("click", function
     // opt2.style.display = "none";
 })
 document.body.querySelector('.deletion-show').addEventListener('click', () => deletion.classList.toggle('active'));
-// deletionLetter.forEach(e => e.addEventListener('click', deleteLetterInDeletion));
