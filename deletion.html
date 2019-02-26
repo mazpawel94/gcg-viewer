@@ -43,14 +43,14 @@
 
 <body>
     <div class="deletion">
-        <div class="deletion-letter deleted">A</div>
         <div class="deletion-letter">A</div>
         <div class="deletion-letter">A</div>
         <div class="deletion-letter">A</div>
         <div class="deletion-letter">A</div>
         <div class="deletion-letter">A</div>
         <div class="deletion-letter">A</div>
-        <div class="deletion-letter deleted">A</div>
+        <div class="deletion-letter">A</div>
+        <div class="deletion-letter">A</div>
         <div class="deletion-letter">A</div>
         <div class="deletion-letter">Ą</div>
         <div class="deletion-letter">B</div>
@@ -63,8 +63,8 @@
         <div class="deletion-letter">D</div>
         <div class="deletion-letter">D</div>
         <div class="deletion-letter">E</div>
-        <div class="deletion-letter deleted">E</div>
-        <div class="deletion-letter deleted">E</div>
+        <div class="deletion-letter">E</div>
+        <div class="deletion-letter">E</div>
         <div class="deletion-letter">E</div>
         <div class="deletion-letter">E</div>
         <div class="deletion-letter">E</div>
@@ -144,5 +144,19 @@
         <div class="deletion-letter"></div>
         <div class="deletion-letter"></div>
     </div>
+    <script>
+    
+    const deletionLetter = document.body.querySelectorAll('.deletion-letter');
+
+    const deleteLetterInDeletion = (tile) => {
+        
+        const letter = tile.target.textContent;
+        console.log([...deletionLetter].indexOf(tile.target));
+        const change = [...deletionLetter].filter(e => !e.classList.contains('deleted'))
+                                          .find(e => e.textContent === letter);
+        change.classList.add('deleted');
+    }
+    deletionLetter.forEach(e => e.addEventListener('click', deleteLetterInDeletion));
+    </script>
 </body>
 </html>
