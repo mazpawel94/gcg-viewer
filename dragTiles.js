@@ -2,7 +2,7 @@
 let active = false, startX, startY, actualDiv, ctualDivStartX, actualDivStartY, actualDivStartOrder;
 // const place = 600/7;
 let place = 75;
-if(window.innerHeight <= 600) {
+if(window.innerHeight <= 720) {
 place = 50;
 }
 const convertOrderToInt = (order) => {
