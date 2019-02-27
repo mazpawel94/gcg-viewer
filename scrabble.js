@@ -25,7 +25,6 @@ let y = 23;  //coordinates
 let moveNumber = 0;
 let moves = [];
 const tileWidth = 38;
-// let pointMove;
 const points = {
     'A': 1,
     'Ą': 5,
@@ -119,12 +118,16 @@ const createTileOnRack = function (letter) {
 }
 
 const setRack = function () {
+
     const move = decodeMove(moveNumber);
     setNick(move[0]);
     const letters = move[1];
-    [...letters].forEach(letter => createTileOnRack(letter));
-    [...document.querySelectorAll('.actual li')].forEach( (e, index) => e.style.order = index);
-    [...document.querySelectorAll('.actual li')].forEach((div) => {
+    [...letters].forEach(letter => {
+        createTileOnRack(letter);
+        deleteLetterInDeletion(letter);
+    });
+    [...document.querySelectorAll('.actual li')].forEach((div, index) => {
+        div.style.order = index;
         div.addEventListener('mousedown', activateLetter);
         div.addEventListener('touchstart', touchActivateLetter);
         div.addEventListener('mouseup', dropLetter);
@@ -143,12 +146,13 @@ const setOldRack = function (nodes) {
 
     const oldNodes = document.querySelectorAll(".previous li");
     [...oldNodes].forEach(node => ul2.removeChild(node));
-    let word = decodeMove(moveNumber)[3].replace(/[a-z]/g, '?').split('');
+    let word = decodeMove(moveNumber)[3].replace(/[a-ząężćźżłńóś]/g, '?').split('');
     [...nodes].forEach( node =>  {
         if(word.indexOf(node.textContent[0])!==-1) {
             node.style.backgroundColor="gray";
             delete word[word.indexOf(node.textContent[0])];
         }
+        addLetterInDeletion(node.textContent[0]);
         node.classList.add('old');
         ul2.appendChild(node);
     });
@@ -165,8 +169,9 @@ const clearRack = function () {
 
 
 const deleteLetterInDeletion = (letter) => {
+    console.log(letter);
     if(letter === '+' || letter === '0')  return;
-    letter = letter.replace(/[a-ząężćźżłńóś]/, '')
+    letter = letter.replace(/[a-ząężćźżłńóś?]/, '')
     const change = [...deletionLetter].filter(e => !e.classList.contains('deleted'))
                                       .find(e => e.textContent === letter);
     change.classList.add('deleted');
@@ -176,7 +181,7 @@ const deleteLetterInDeletion = (letter) => {
 const addLetterInDeletion = (letter) => {   //cofa skreślenie - przy cofaniu ruchu
 
     if(letter === '+' || letter === '0' || letter ==='.')  return;
-    letter = letter.replace(/[a-ząężćźżłńóś]/, '')
+    letter = letter.replace(/[a-ząężćźżłńóś?]/, '')
     const change = [...deletionLetter].filter(e => e.classList.contains('deleted'))
                                       .find(e => e.textContent === letter);
     change.classList.remove('deleted');
@@ -327,6 +332,7 @@ function clearAll() {
 
 //funkcja obsługująca kliknięcie w klawisz >>>
 function next() {
+        // [...decodeMove(moveNumber)[1]].forEach(letter => addLetterInDeletion(letter));
     clearRack();
     move(moveNumber);
     moveNumber++;
