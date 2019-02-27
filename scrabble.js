@@ -14,6 +14,7 @@ const resultPlayer1 = document.getElementById("result1");
 const resultPlayer2 = document.getElementById("result2");
 const deletionLetter = document.body.querySelectorAll('.deletion-letter');
 const deletion = document.body.querySelector('.deletion');
+const closeDeletion = document.querySelector('.close');
 canvas.width = 593;
 canvas.height = 593;
 ctx.beginPath();
@@ -484,4 +485,5 @@ document.body.querySelector('#complete-game').addEventListener("click", function
     this.style.display = "none";
     // opt2.style.display = "none";
 })
-document.body.querySelector('.deletion-show').addEventListener('click', () => deletion.classList.toggle('active'));
+document.body.querySelector('.deletion-show').addEventListener('click', () => deletion.classList.add('active'));
+closeDeletion.addEventListener('click', () => deletion.classList.remove('active'));

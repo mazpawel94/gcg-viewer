@@ -109,6 +109,7 @@ sub {
     height: 400px;
     user-select: none;
     background-color: rgb(75, 75, 75);
+    position: relative;
 }
 
 .deletion-letter {
@@ -128,19 +129,34 @@ sub {
     opacity: 0.2;
 }
 
+.close {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(73, 16, 16);
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    /* display: none; */
+}
+
 @media only screen and (max-width: 640px) {
 
     * {
         margin: 0;
         padding: 0;
-        overflow-x: hidden;
 
     }
-
+/* 
     #view2 {
-        overflow-x: hidden;
 
-    }
+    } */
 
     canvas {
         transform: scale(0.5) translate(-50%, -50%);
@@ -192,8 +208,9 @@ sub {
                 font-size: 20px;
                 line-height: 28px;
             }
-            .active {
+            .deletion.active {
                 display: flex;
             }
+
     }
 
