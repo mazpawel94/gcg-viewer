@@ -492,8 +492,8 @@ file.addEventListener("input", readGame);
 
 document.body.querySelector('#complete-game').addEventListener("click", function () {
     let content = document.getElementById("view2");
-    if (content.style.display == "block") content.style.display = "none";
-    else content.style.display = "block";
+    if (content.style.display == "flex") content.style.display = "none";
+    else content.style.display = "flex";
     // document.getElementById("view1").style.display = "none";
     this.style.display = "none";
     // opt2.style.display = "none";

@@ -1,28 +1,41 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
-}
 
 body {
-    /* display: flex; */
     font-weight: bold;
-    width: 100%;
-    /* overflow-x: hidden; */
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background-image: linear-gradient( 135deg, #F8E8C7 20%, #015B52 100%);
+    box-sizing: border-box;
     
 }
 
+#view2 {
+    display: flex;
+    flex-direction: row;
+}
+.game-view {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.players-view {
+    flex-grow: 1;
+    display: flex;
+    /* align-items: flex-end; */
+    align-items: center;
+    flex-direction: column;
+}
 .result {
     margin: auto auto;
-    min-width: 70vw;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin: 10px 0 10px 0;
 }
 
 .result div {
-    width: 50vw;
+    width: 50%;
     text-align: center;
 }
 
@@ -67,7 +80,7 @@ button {
 .rack {
 
     height: 100px;
-    width: 100vw;
+    /* width: 100vw; */
     margin: auto;
     align-content: center;
 }
@@ -112,6 +125,7 @@ sub {
     user-select: none;
     background-color: rgb(75, 75, 75);
     position: relative;
+    z-index: 100;
 }
 
 .deletion-letter {
@@ -186,6 +200,23 @@ sub {
         transform: scale(0.5) translate(-50%, -50%);
         display: block;
         margin: auto;
+    }
+
+    #view2 {
+        flex-direction: column;
+    }
+
+    .game-view {
+        width: 100%;
+    }
+
+    .players-view {
+        
+        align-items: flex-start;
+    }
+
+    ul {
+        padding: 0;
     }
     .gameNavigation, .racks {
         /*        transform: translate(100%, -700%);*/
