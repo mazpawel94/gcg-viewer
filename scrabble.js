@@ -1,30 +1,33 @@
-const canvas = document.querySelector('canvas');
-const nextButton = document.getElementById('next');
-const remove = document.getElementById('reset');
 const previousButton = document.getElementById('previous');
 const rack = document.querySelectorAll(".rack")[0];
 const ul = rack.querySelector("ul");
-const rack2 = document.querySelectorAll(".rack")[1];
-const ul2 = rack2.querySelector("ul");
+const previousRack = document.querySelectorAll(".rack")[1];
+const ul2 = previousRack.querySelector("ul");
 const file = document.getElementById('file-input');
 const nick = document.querySelector(".nick");
-const ctx = canvas.getContext("2d");
-let player1, player2;
 const resultPlayer1 = document.getElementById("result1");
 const resultPlayer2 = document.getElementById("result2");
 const deletionLetter = document.body.querySelectorAll('.deletion-letter');
 const deletion = document.body.querySelector('.deletion');
-const closeDeletion = document.querySelector('.close');
+const comment = document.querySelector('.comment');
+
+
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext("2d");
 canvas.width = 593;
 canvas.height = 593;
 ctx.beginPath();
 ctx.fillStyle = "#F8E8C7";
 ctx.font = "28px sans-serif bold";
+
+let player1, player2;
+
 let x = 23;
 let y = 23;  //coordinates 
 let moveNumber = 0;
 let moves = [];
 const tileWidth = 38;
+
 const points = {
     'A': 1,
     'Ą': 5,
@@ -114,7 +117,6 @@ const createTileOnRack = function (letter) {
     node.appendChild(textnode);
     node.appendChild(sub);
     ul.appendChild(node);
-
 }
 
 const setRack = function () {
@@ -135,8 +137,6 @@ const setRack = function () {
    });
 }
 
-
-
 const setNick = function (n) {
 
     nick.innerHTML = n.slice(1, -1).replace(/_/g, ' ');
@@ -146,7 +146,7 @@ const setOldRack = function (nodes) {
 
     const oldNodes = document.querySelectorAll(".previous li");
     [...oldNodes].forEach(node => ul2.removeChild(node));
-    let word = decodeMove(moveNumber)[3].replace(/[a-ząężćźżłńóś]/g, '?').split('');
+    const word = decodeMove(moveNumber)[3].replace(/[a-ząężćźżłńóś]/g, '?').split('');
     [...nodes].forEach( node =>  {
         if(word.indexOf(node.textContent[0])!==-1) {
             node.style.backgroundColor="gray";
@@ -156,7 +156,7 @@ const setOldRack = function (nodes) {
         node.classList.add('old');
         ul2.appendChild(node);
     });
-    rack2.querySelector('p').textContent = nick.innerHTML;
+    previousRack.querySelector('p').textContent = nick.innerHTML;
 }
 
 const clearRack = function () {
@@ -164,12 +164,12 @@ const clearRack = function () {
     const nodes = document.querySelectorAll(".actual li");
     [...nodes].forEach( node => ul.removeChild(node));
     setOldRack(nodes);
-    rack2.querySelector('p').textContent = nick.innerHTML;
+    previousRack.querySelector('p').textContent = nick.innerHTML;
 }
 
 
 const deleteLetterInDeletion = (letter) => {
-    console.log(letter);
+
     if(letter === '+' || letter === '0')  return;
     letter = letter.replace(/[a-ząężćźżłńóś?]/, '')
     const change = [...deletionLetter].filter(e => !e.classList.contains('deleted'))
@@ -182,23 +182,19 @@ const addLetterInDeletion = (letter) => {   //cofa skreślenie - przy cofaniu ru
 
     if(letter === '+' || letter === '0' || letter ==='.')  return;
     letter = letter.replace(/[a-ząężćźżłńóś?]/, '')
-    const change = [...deletionLetter].filter(e => e.classList.contains('deleted'))
-                                      .find(e => e.textContent === letter);
+    const change = [...deletionLetter].filter(e => e.classList.contains('deleted')).find(e => e.textContent === letter);
     change.classList.remove('deleted');
 }
 
 
 
-const coordinates = function (c) {
-    const a = c.slice(-1);
-    if (isNaN(a)) { // horizontal
-        const n = letterToNumber(a);
-        return [c.slice(0, -1) - 1, n, 1];
-    } else { // vertical
-        const n = letterToNumber(c[0]);
-        return [n, c.slice(1, ) - 1, 0];
-    }
+const putCoordinates = function (coordinates) {
 
+    const lastCoordinate = coordinates.slice(-1);
+    if (isNaN(lastCoordinate)) // horizontal
+        return [coordinates.slice(0, -1) - 1, letterToNumber(lastCoordinate), 1];
+    else  // vertical
+        return [letterToNumber(coordinates[0]), coordinates.slice(1, ) - 1, 0];
 }
 
 const decodeMove = (index) => {
@@ -207,6 +203,7 @@ const decodeMove = (index) => {
 }
 
 const turnOver = function() {
+
     clearMove();
     moveNumber++;
     clearRack();
@@ -248,7 +245,7 @@ const drawLetterOnBoard = function(newMove, x, y, letter) {
 const drawLettersOnBoard = (moveTab, newMove) => {
 
     const word = moveTab[3];
-    const xy = putStartCoordinates(coordinates(moveTab[2]));
+    const xy = putStartCoordinates(putCoordinates(moveTab[2]));
     let x = xy[0];
     let y = xy[1];
     let horizontal = xy[2];
@@ -264,27 +261,31 @@ const drawLettersOnBoard = (moveTab, newMove) => {
         if (horizontal) x += tileWidth;
         else y += tileWidth;
     }
-    // pointMove = new PointsOnBoard(moveTab[4], x + 10, y + 28);
-    // pointMove.draw();
     reset();
+}
+const showComment = (text) => {
+    comment.querySelector('span').textContent = text;
+    comment.style.display = 'block';
 }
 
 const move = function (index) {
+
+    let word = decodeMove(index);
     reset();
     if(index>0) 
-    {
         drawLettersOnBoard(decodeMove(index-1), false);
-        // pointMove.clear();
-    }
-    let word = decodeMove(index);
     
     if (word[2] == "--") { // -- oznacza stratę w poprzednim ruchu        
        turnOver();
         return;
     }
     if (word[2].startsWith("-")) //wymiana w poprzednim ruchu
-        alert("wymiana " + word[2].slice(1));
-
+        showComment(`wymiana ${word[2].slice(1)}`);
+    if(word[0].includes('#note')) {
+        showComment(`${word.join(' ')}`);
+        return;
+    }        
+        // alert("wymiana " + word[2].slice(1));
     //wyświetlanie kolejnych liter w wyrazie w danym ruchu
     drawLettersOnBoard(word, true);
    
@@ -332,8 +333,13 @@ function clearAll() {
 
 //funkcja obsługująca kliknięcie w klawisz >>>
 function next() {
-        // [...decodeMove(moveNumber)[1]].forEach(letter => addLetterInDeletion(letter));
+
     clearRack();
+    // console.log(decodeMove(moveNumber)[0]);
+    // if(decodeMove(moveNumber)[0].includes('#note')) {
+    //     alert(decodeMove(moveNumber));
+    //     return;
+    // }
     move(moveNumber);
     moveNumber++;
     setRack();
@@ -341,12 +347,13 @@ function next() {
 
 
 function clearMove() {
+
     moveNumber--;
     clearRack();
     const oldNodes = document.querySelectorAll(".previous li");
     [...oldNodes].forEach(node => ul2.removeChild(node));
     reset();
-    let word = moves[moveNumber].split(" ");
+    const word = decodeMove(moveNumber);
     [...word[3]].forEach(letter => addLetterInDeletion(letter));
     if (word[4].startsWith("+") || word[4].startsWith("-")) {
         if (word[0].slice(1,-1).replace(/_/g, ' ') == player1) {
@@ -363,7 +370,7 @@ function clearMove() {
     }
 
     
-    let xy = coordinates(word[2]);
+    let xy = putCoordinates(word[2]);
     if (xy[2]) {
         x = x + xy[1] * tileWidth;
         y = y + xy[0] * tileWidth;
@@ -412,73 +419,73 @@ function readGame(e) {
 }
 
 //funkcja do pobierania wprowadzonej przez użytkownika partii
-function downloadGame() {
-    let document = "";
-    for (let i = 0; i < moves.length; i++) {
-        document += moves[i] + "\n";
-    }
-    let blob = new Blob([document], {
-        type: 'text/gcg'
-    });
-    let a = window.document.createElement("a");
-    a.href = window.URL.createObjectURL(blob);
-    let name = nick1[0].value + " vs " + nick2[0].value + ".gcg";
-    a.download = name;
-    window.document.body.appendChild(a);
-    a.click();
-    window.document.body.removeChild(a);
+// function downloadGame() {
+//     let document = "";
+//     for (let i = 0; i < moves.length; i++) {
+//         document += moves[i] + "\n";
+//     }
+//     let blob = new Blob([document], {
+//         type: 'text/gcg'
+//     });
+//     let a = window.document.createElement("a");
+//     a.href = window.URL.createObjectURL(blob);
+//     let name = nick1[0].value + " vs " + nick2[0].value + ".gcg";
+//     a.download = name;
+//     window.document.body.appendChild(a);
+//     a.click();
+//     window.document.body.removeChild(a);
     
-}
+// }
 
-const nick1 = document.getElementsByName("player1");
-const nick2 = document.getElementsByName("player2");
+// const nick1 = document.getElementsByName("player1");
+// const nick2 = document.getElementsByName("player2");
 
 
-//funkcja do oglądania wprowadzonej ręcznie partii
-function createFile() {
-    moves = [];
-    clearAll();
-    let row = "",
-        inputs, letters, word, nick, coordinates;
+// //funkcja do oglądania wprowadzonej ręcznie partii
+// function createFile() {
+//     moves = [];
+//     clearAll();
+//     let row = "",
+//         inputs, letters, word, nick, coordinates;
 
-    moves[0] = "#player1 " + nick1[0].value + " " + nick1[0].value;
-    moves[1] = "#player2 " + nick2[0].value + " " + nick2[0].value;
-    for (let i = 0; i < classes.length; i++) {
-        row = "";
-        if (!(i % 2)) nick = nick1[0].value;
-        else nick = nick2[0].value;
-        row += ">" + nick + ": ";
-        inputs = classes[i].getElementsByTagName("input");
-        coordinates = inputs[1].value.toUpperCase();
-        if (coordinates.length > 0) coordinates += " "; //spacja jeżeli są współrzędne, a więc nie było wymiany - przeciwdziała podwójnej spacji w przypadku braku współrzędnych
-        if (inputs[2].value.startsWith("s(")) word = inputs[2].value.slice(2, -1);
-        else word = inputs[2].value;
-        if (inputs[2].value.startsWith("w(")) {
-            word = "-" + inputs[2].value.slice(2, -1);
-        }
-        if (inputs[0].value.indexOf("-") == -1) {
-            letters = inputs[0].value.replace(/\s/g, '').toUpperCase();
-        } else
-            letters = word.replace(/\./g, "").replace(/\s/g, '').toUpperCase();
-        word = findBlanks(word.toUpperCase());
-        row += letters + " " + coordinates + word + " +" + inputs[3].value;
-        moves.push(row);
-        if (inputs[2].value.startsWith("s(")) {
-            row = "";
-            row += ">" + nick + ": " + letters + " -- " + "0";
-            moves.push(row);
-        }
-    }
-    view2.style.display = "inline";
-    file.style.display = "none";
-    moveNumber = 2;
-    setRack();
-    document.getElementById("download").style.display = "block";
-}
+//     moves[0] = "#player1 " + nick1[0].value + " " + nick1[0].value;
+//     moves[1] = "#player2 " + nick2[0].value + " " + nick2[0].value;
+//     for (let i = 0; i < classes.length; i++) {
+//         row = "";
+//         if (!(i % 2)) nick = nick1[0].value;
+//         else nick = nick2[0].value;
+//         row += ">" + nick + ": ";
+//         inputs = classes[i].getElementsByTagName("input");
+//         coordinates = inputs[1].value.toUpperCase();
+//         if (coordinates.length > 0) coordinates += " "; //spacja jeżeli są współrzędne, a więc nie było wymiany - przeciwdziała podwójnej spacji w przypadku braku współrzędnych
+//         if (inputs[2].value.startsWith("s(")) word = inputs[2].value.slice(2, -1);
+//         else word = inputs[2].value;
+//         if (inputs[2].value.startsWith("w(")) {
+//             word = "-" + inputs[2].value.slice(2, -1);
+//         }
+//         if (inputs[0].value.indexOf("-") == -1) {
+//             letters = inputs[0].value.replace(/\s/g, '').toUpperCase();
+//         } else
+//             letters = word.replace(/\./g, "").replace(/\s/g, '').toUpperCase();
+//         word = findBlanks(word.toUpperCase());
+//         row += letters + " " + coordinates + word + " +" + inputs[3].value;
+//         moves.push(row);
+//         if (inputs[2].value.startsWith("s(")) {
+//             row = "";
+//             row += ">" + nick + ": " + letters + " -- " + "0";
+//             moves.push(row);
+//         }
+//     }
+//     view2.style.display = "inline";
+//     file.style.display = "none";
+//     moveNumber = 2;
+//     setRack();
+//     document.getElementById("download").style.display = "block";
+// }
 
 // ok.addEventListener("click", createFile);
-nextButton.addEventListener("click", next);
-remove.addEventListener("click", clearAll);
+document.getElementById('next').addEventListener("click", next);
+document.getElementById('reset').addEventListener("click", clearAll);
 previousButton.addEventListener("click", clearMove);
 file.addEventListener("input", readGame);
 // document.getElementById("download").addEventListener("click", downloadGame);
@@ -492,4 +499,5 @@ document.body.querySelector('#complete-game').addEventListener("click", function
     // opt2.style.display = "none";
 })
 document.body.querySelector('.deletion-show').addEventListener('click', () => deletion.classList.add('active'));
-closeDeletion.addEventListener('click', () => deletion.classList.remove('active'));
+document.querySelector('.close').addEventListener('click', () => deletion.classList.remove('active'));
+comment.querySelector('button').addEventListener('click', ()=> comment.style.display='none');
