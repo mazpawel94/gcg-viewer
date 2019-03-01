@@ -330,25 +330,18 @@ function clearAll() {
     
 }
 
-
-//funkcja obsługująca kliknięcie w klawisz >>>
 function next() {
 
     clearRack();
-    // console.log(decodeMove(moveNumber)[0]);
-    // if(decodeMove(moveNumber)[0].includes('#note')) {
-    //     alert(decodeMove(moveNumber));
-    //     return;
-    // }
     move(moveNumber);
-    moveNumber++;
+    if(moveNumber<moves.length)  moveNumber++;
     setRack();
 }
 
 
 function clearMove() {
 
-    moveNumber--;
+    if(moveNumber>=1)  moveNumber--;
     clearRack();
     const oldNodes = document.querySelectorAll(".previous li");
     [...oldNodes].forEach(node => ul2.removeChild(node));
@@ -415,6 +408,7 @@ function readGame(e) {
     }
     reader.readAsText(game);
     file.style.display = "none";
+    document.body.querySelector('label').style.display = 'none';
 
 }
 
