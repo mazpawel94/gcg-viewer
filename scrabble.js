@@ -3,7 +3,7 @@ const rack = document.querySelectorAll(".rack")[0];
 const ul = rack.querySelector("ul");
 const previousRack = document.querySelectorAll(".rack")[1];
 const ul2 = previousRack.querySelector("ul");
-const file = document.getElementById('file-input');
+const file = document.getElementById('file');
 const nick = document.querySelector(".nick");
 const resultPlayer1 = document.getElementById("result1");
 const resultPlayer2 = document.getElementById("result2");
@@ -490,14 +490,14 @@ previousButton.addEventListener("click", clearMove);
 file.addEventListener("input", readGame);
 // document.getElementById("download").addEventListener("click", downloadGame);
 
-document.body.querySelector('#complete-game').addEventListener("click", function () {
-    let content = document.getElementById("view2");
-    if (content.style.display == "flex") content.style.display = "none";
-    else content.style.display = "flex";
-    // document.getElementById("view1").style.display = "none";
-    this.style.display = "none";
-    // opt2.style.display = "none";
-})
+// document.body.querySelector('#complete-game').addEventListener("click", function () {
+//     let content = document.getElementById("view2");
+//     if (content.style.display == "flex") content.style.display = "none";
+//     else content.style.display = "flex";
+//     // document.getElementById("view1").style.display = "none";
+//     this.style.display = "none";
+//     // opt2.style.display = "none";
+// })
 document.body.querySelector('.deletion-show').addEventListener('click', () => deletion.classList.add('active'));
 document.querySelector('.close').addEventListener('click', () => deletion.classList.remove('active'));
 comment.querySelector('button').addEventListener('click', ()=> comment.style.display='none');

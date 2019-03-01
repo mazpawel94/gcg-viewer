@@ -4,15 +4,17 @@
     <meta charset="UTF-8" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="gcgGenerator.css" />
     <link rel="stylesheet" href="scrabble.css" />
   </head>
 
   <body>
-    <button id="complete-game">wczytaj grę</button>
-    <div id="view2">
-      <input type="file" id="file-input" />
+    <!-- <button id="complete-game">wczytaj grę</button> -->
+    <input type="file" id="file" />
+    
+    <label for="file"><i class="fas fa-cloud-download-alt"></i> Wczytaj partię</label>
+    <div class="game">
       <section class="game-view">
         <div class="result">
           <div class="players"></div>
@@ -140,7 +142,6 @@
         </div>
         
       </section>
-
     </div>
     <button id="reset">resetuj</button>
 
