@@ -20,7 +20,6 @@ const dragLetter =  (e) => {
 }
 
 const touchDragLetter =  (e) => {
-    console.log('dragletter');
     if(active){
         if(!actualDivStartX) actualDivStartX = 0;
         if(!actualDivStartY) actualDivStartY = 0;
@@ -31,9 +30,6 @@ const touchDragLetter =  (e) => {
 }
 
 const reorganizeTiles = (tile, distance) => {
-
-    console.log('reorganizeTiles');
-
     let actualOrder = convertOrderToInt(tile.style.order);
     let orderIndex = actualDivStartOrder + Math.round((distance)/place);
     if (orderIndex>=document.querySelectorAll('.actual li').length || orderIndex<0) return;
@@ -74,8 +70,6 @@ const touchActivateLetter = (e) => {
 }
 
 const dropLetter = (e) => {
-    console.log('dropLetter', e);
-
     active = false;
     e.target.style.top = "0";
     e.target.style.left ="0";

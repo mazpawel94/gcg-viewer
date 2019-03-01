@@ -122,6 +122,7 @@ const createTileOnRack = function (letter) {
 const setRack = function () {
 
     const move = decodeMove(moveNumber);
+    if(move[0].includes('#note'))   return;
     setNick(move[0]);
     const letters = move[1];
     [...letters].forEach(letter => {
@@ -409,89 +410,13 @@ function readGame(e) {
     reader.readAsText(game);
     file.style.display = "none";
     document.body.querySelector('label').style.display = 'none';
+    document.body.querySelector('a').style.display = 'none';
 
 }
 
-//funkcja do pobierania wprowadzonej przez użytkownika partii
-// function downloadGame() {
-//     let document = "";
-//     for (let i = 0; i < moves.length; i++) {
-//         document += moves[i] + "\n";
-//     }
-//     let blob = new Blob([document], {
-//         type: 'text/gcg'
-//     });
-//     let a = window.document.createElement("a");
-//     a.href = window.URL.createObjectURL(blob);
-//     let name = nick1[0].value + " vs " + nick2[0].value + ".gcg";
-//     a.download = name;
-//     window.document.body.appendChild(a);
-//     a.click();
-//     window.document.body.removeChild(a);
-    
-// }
-
-// const nick1 = document.getElementsByName("player1");
-// const nick2 = document.getElementsByName("player2");
-
-
-// //funkcja do oglądania wprowadzonej ręcznie partii
-// function createFile() {
-//     moves = [];
-//     clearAll();
-//     let row = "",
-//         inputs, letters, word, nick, coordinates;
-
-//     moves[0] = "#player1 " + nick1[0].value + " " + nick1[0].value;
-//     moves[1] = "#player2 " + nick2[0].value + " " + nick2[0].value;
-//     for (let i = 0; i < classes.length; i++) {
-//         row = "";
-//         if (!(i % 2)) nick = nick1[0].value;
-//         else nick = nick2[0].value;
-//         row += ">" + nick + ": ";
-//         inputs = classes[i].getElementsByTagName("input");
-//         coordinates = inputs[1].value.toUpperCase();
-//         if (coordinates.length > 0) coordinates += " "; //spacja jeżeli są współrzędne, a więc nie było wymiany - przeciwdziała podwójnej spacji w przypadku braku współrzędnych
-//         if (inputs[2].value.startsWith("s(")) word = inputs[2].value.slice(2, -1);
-//         else word = inputs[2].value;
-//         if (inputs[2].value.startsWith("w(")) {
-//             word = "-" + inputs[2].value.slice(2, -1);
-//         }
-//         if (inputs[0].value.indexOf("-") == -1) {
-//             letters = inputs[0].value.replace(/\s/g, '').toUpperCase();
-//         } else
-//             letters = word.replace(/\./g, "").replace(/\s/g, '').toUpperCase();
-//         word = findBlanks(word.toUpperCase());
-//         row += letters + " " + coordinates + word + " +" + inputs[3].value;
-//         moves.push(row);
-//         if (inputs[2].value.startsWith("s(")) {
-//             row = "";
-//             row += ">" + nick + ": " + letters + " -- " + "0";
-//             moves.push(row);
-//         }
-//     }
-//     view2.style.display = "inline";
-//     file.style.display = "none";
-//     moveNumber = 2;
-//     setRack();
-//     document.getElementById("download").style.display = "block";
-// }
-
-// ok.addEventListener("click", createFile);
 document.getElementById('next').addEventListener("click", next);
-document.getElementById('reset').addEventListener("click", clearAll);
 previousButton.addEventListener("click", clearMove);
 file.addEventListener("input", readGame);
-// document.getElementById("download").addEventListener("click", downloadGame);
-
-// document.body.querySelector('#complete-game').addEventListener("click", function () {
-//     let content = document.getElementById("view2");
-//     if (content.style.display == "flex") content.style.display = "none";
-//     else content.style.display = "flex";
-//     // document.getElementById("view1").style.display = "none";
-//     this.style.display = "none";
-//     // opt2.style.display = "none";
-// })
-document.body.querySelector('.deletion-show').addEventListener('click', () => deletion.classList.add('active'));
+document.body.querySelector('.deletion-show').addEventListener('click', () => deletion.classList.toggle('active'));
 document.querySelector('.close').addEventListener('click', () => deletion.classList.remove('active'));
 comment.querySelector('button').addEventListener('click', ()=> comment.style.display='none');

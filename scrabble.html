@@ -14,13 +14,15 @@
     <input type="file" id="file" />
     
     <label for="file"><i class="fas fa-cloud-download-alt"></i> Wczytaj partię</label>
+    <a href="http://scrabble.stats.org.pl/gcg_all.php" target="_blank">Pobierz partię z bazy</a>
     <div class="game">
       <section class="game-view">
+        <div class="comment"><span></span><button>Zamknij</button></div>
         <div class="result">
           <div class="players"></div>
           <div class="players"></div>
-          <div id="result1">0</div>
-          <div id="result2">0</div>
+          <div id="result1"></div>
+          <div id="result2"></div>
         </div>
         <canvas> </canvas>
         <div class="gameNavigation">
@@ -143,10 +145,6 @@
         
       </section>
     </div>
-    <button id="reset">resetuj</button>
-
-
-    <div class="comment"><span></span><button>Zamknij</button></div>
     <script src="dragTiles.js"></script>
     <script src="scrabble.js"></script>
     <!-- <script src="gcgGenerator.js"></script> -->
