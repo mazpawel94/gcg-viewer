@@ -122,7 +122,7 @@ const createTileOnRack = function (letter) {
 const setRack = function () {
 
     const move = decodeMove(moveNumber);
-    if(move[0].includes('#note'))   return;
+    if(move[0].includes('#note') || move[2].includes('-'))   return;
     setNick(move[0]);
     const letters = move[1];
     [...letters].forEach(letter => {
@@ -276,10 +276,11 @@ const move = function (index) {
     if(index>0) 
         drawLettersOnBoard(decodeMove(index-1), false);
     
-    if (word[2] == "--") { // -- oznacza stratę w poprzednim ruchu        
+    if (word[2] == "--") { // -- oznacza stratę w poprzednim ruchu
        turnOver();
         return;
     }
+   
     if (word[2].startsWith("-")) //wymiana w poprzednim ruchu
         showComment(`wymiana ${word[2].slice(1)}`);
     if(word[0].includes('#note')) {

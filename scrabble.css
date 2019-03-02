@@ -350,6 +350,10 @@ sub {
     ul {
         padding: 0;
     }
+
+    .result {
+        margin: 0;
+    }
     .gameNavigation, .racks {
         /*        transform: translate(100%, -700%);*/
                 transform: translateY(-280px);
@@ -375,11 +379,11 @@ sub {
             .deletion-show {
                 display: block;
                 background-color: white;
-                margin-bottom: 5px;
+                margin-bottom: 3px;
                 color: rgb(149, 31, 31);
-                padding: 5px;
+                padding: 3px;
                 border-radius: 20px;
-                letter-spacing: .7px;
+                letter-spacing: .6px;
                 border: none;
                 -webkit-border-radius: 20px;
                 -moz-border-radius: 20px;
