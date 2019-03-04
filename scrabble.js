@@ -266,7 +266,7 @@ const drawLettersOnBoard = (moveTab, newMove) => {
 }
 
 const showComment = (text) => {
-    comment.querySelector('span').textContent = text;
+    comment.querySelector('span').innerHTML = text;
     comment.style.display = 'block';
 }
 
@@ -354,18 +354,27 @@ function clearAll() {
 }
 
 function showEndResult() {
-    const pointsFromWriteOff = parseInt(decodeMove(moveNumber)[2])/2;
-    console.log(pointsFromWriteOff);
-    if(decodeMove(moveNumber)[0].includes(player1));
-}
+
+    const pointsFromWriteOff = parseInt(decodeMove(moveNumber)[3])/2;
+    if(decodeMove(moveNumber)[0].slice(1,-1).replace(/_/g, ' ') == player1)
+        showComment("Wynik końcowy: <br />"  + `${player1} ${parseInt(resultPlayer1.innerHTML) + pointsFromWriteOff} : ${player2} ${parseInt(resultPlayer2.innerHTML) - pointsFromWriteOff}`);
+    else
+        showComment("Wynik końcowy: <br />"  + `${player1} ${parseInt(resultPlayer1.innerHTML) - pointsFromWriteOff} : ${player2} ${parseInt(resultPlayer2.innerHTML) + pointsFromWriteOff}`);
+
+    }
 
 function next() {
 
+    if(moveNumber + 2 >moves.length) return;
+    if(moveNumber+2 == moves.length) {
+        showEndResult();
+        moveNumber++;
+        return;
+    }
+
     clearRack();
     move(moveNumber);
-    if(moveNumber<moves.length)  moveNumber++;
-    // if(moveNumber==moves.length) 
-    //     showComment(``)
+    moveNumber++;
     setRack();
 }
 
@@ -378,8 +387,7 @@ function clearMove() {
         return;
     }
     clearRack();
-    const oldNodes = document.querySelectorAll(".previous li");
-    [...oldNodes].forEach(node => ul2.removeChild(node));
+    [...document.querySelectorAll(".previous li")].forEach(node => ul2.removeChild(node));
     reset();
     const word = decodeMove(moveNumber);
     [...word[3]].forEach(letter => addLetterInDeletion(letter));
