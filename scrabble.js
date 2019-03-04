@@ -122,7 +122,7 @@ const createTileOnRack = function (letter) {
 const setRack = function () {
 
     const move = decodeMove(moveNumber);
-    if(move[0].includes('#note') || move[2].includes('-'))   return;
+    if(move[0].includes('#note'))   return;
     setNick(move[0]);
     const letters = move[1];
     [...letters].forEach(letter => {
@@ -171,22 +171,20 @@ const clearRack = function () {
 
 const deleteLetterInDeletion = (letter) => {
 
-    if(letter === '+' || letter === '0')  return;
+    if(letter === '+' || letter === '0' || letter ==='.' || typeof letter === 'number')  return;
     letter = letter.replace(/[a-ząężćźżłńóś?]/, '')
-    const change = [...deletionLetter].filter(e => !e.classList.contains('deleted'))
-                                      .find(e => e.textContent === letter);
-    change.classList.add('deleted');
+    const change = [...deletionLetter].filter(e => !e.classList.contains('deleted')).find(e => e.textContent === letter);
+    if(change)  change.classList.add('deleted');
 }
 
 
 const addLetterInDeletion = (letter) => {   //cofa skreślenie - przy cofaniu ruchu
 
-    if(letter === '+' || letter === '0' || letter ==='.')  return;
+    if(letter === '+' || letter === '0' || letter ==='.' || typeof letter === 'number')  return;
     letter = letter.replace(/[a-ząężćźżłńóś?]/, '')
     const change = [...deletionLetter].filter(e => e.classList.contains('deleted')).find(e => e.textContent === letter);
-    change.classList.remove('deleted');
+    if(change)  change.classList.remove('deleted');
 }
-
 
 
 const putCoordinates = function (coordinates) {
@@ -331,7 +329,8 @@ const move = function (index) {
 }
 
 
-function findBlanks(word) {
+const findBlanks = (word) => {
+
     let i = word.indexOf("("), w;
     if(i>-1) {
         w = word.slice(0,i) + word[i+1].toLowerCase() +  word.slice(i+2,);
@@ -343,7 +342,7 @@ function findBlanks(word) {
     return String(w).replace(")", "").replace(")", "");
 }
 
-function clearAll() {
+const clearAll = () => {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if(moveNumber) clearRack();
@@ -353,7 +352,7 @@ function clearAll() {
     
 }
 
-function showEndResult() {
+const showEndResult = () => {
 
     const pointsFromWriteOff = parseInt(decodeMove(moveNumber)[3])/2;
     if(decodeMove(moveNumber)[0].slice(1,-1).replace(/_/g, ' ') == player1)
@@ -363,7 +362,7 @@ function showEndResult() {
 
     }
 
-function next() {
+const next = () => {
 
     if(moveNumber + 2 >moves.length) return;
     if(moveNumber+2 == moves.length) {
@@ -379,7 +378,7 @@ function next() {
 }
 
 
-function clearMove() {
+const clearMove = () => {
 
     if(moveNumber>=1)  moveNumber--;
     if(decodeMove(moveNumber)[2] === '--') {
@@ -416,7 +415,8 @@ function clearMove() {
 
 
 
-function readGame(e) {
+const readGame = (e) => {
+    
     moves = [];
     clearAll();
     const game = e.target.files[0];
