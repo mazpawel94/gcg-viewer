@@ -264,9 +264,47 @@ const drawLettersOnBoard = (moveTab, newMove) => {
     }
     reset();
 }
+
 const showComment = (text) => {
     comment.querySelector('span').textContent = text;
     comment.style.display = 'block';
+}
+
+
+const addPoints = (points) => {
+
+    if (points.startsWith("+") || points.startsWith("-")) {
+        if (decodeMove(moveNumber)[0].slice(1,-1).replace(/_/g, ' ') == player1) {
+            let p = resultPlayer1.innerHTML;
+            p = parseInt(p) + parseInt(points);
+            resultPlayer1.innerHTML = `${p}(${points})`;
+            resultPlayer2.innerHTML = resultPlayer2.innerHTML.split('(')[0];
+
+        } else {
+             let p = resultPlayer2.innerHTML;
+            p = parseInt(p) + parseInt(points);
+            resultPlayer2.innerHTML =`${p}(${points})`;
+            resultPlayer1.innerHTML = resultPlayer1.innerHTML.split('(')[0];
+
+        }
+    }
+}
+
+const removePoints = (points) => {
+
+    if (points.startsWith("+") || points.startsWith("-")) {
+        if (decodeMove(moveNumber)[0].slice(1,-1).replace(/_/g, ' ') == player1) {
+            let p = resultPlayer1.innerHTML;
+            p = parseInt(p) - parseInt(points);
+            resultPlayer1.innerHTML = p;
+
+        } else {
+             let p = resultPlayer2.innerHTML;
+            p = parseInt(p) - parseInt(points);
+            resultPlayer2.innerHTML = p;
+
+        }
+    }
 }
 
 const move = function (index) {
@@ -287,26 +325,9 @@ const move = function (index) {
         showComment(`${word.join(' ')}`);
         return;
     }        
-        // alert("wymiana " + word[2].slice(1));
-    //wyświetlanie kolejnych liter w wyrazie w danym ruchu
+
     drawLettersOnBoard(word, true);
-   
-    if (word[4].startsWith("+") || word[4].startsWith("-")) {
-        if (word[0].slice(1,-1).replace(/_/g, ' ') == player1) {
-            let p = resultPlayer1.innerHTML;
-            p = parseInt(p) + parseInt( word[4]);
-            resultPlayer1.innerHTML = `${p}(${word[4]})`;
-            resultPlayer2.innerHTML = resultPlayer2.innerHTML.split('(')[0];
-
-        } else {
-             let p = resultPlayer2.innerHTML;
-            p = parseInt(p) + parseInt( word[4]);
-            resultPlayer2.innerHTML =`${p}(${word[4]})`;
-            resultPlayer1.innerHTML = resultPlayer1.innerHTML.split('(')[0];
-
-        }
-    }
-
+    addPoints(word[4]);
 }
 
 
@@ -332,11 +353,19 @@ function clearAll() {
     
 }
 
+function showEndResult() {
+    const pointsFromWriteOff = parseInt(decodeMove(moveNumber)[2])/2;
+    console.log(pointsFromWriteOff);
+    if(decodeMove(moveNumber)[0].includes(player1));
+}
+
 function next() {
 
     clearRack();
     move(moveNumber);
     if(moveNumber<moves.length)  moveNumber++;
+    // if(moveNumber==moves.length) 
+    //     showComment(``)
     setRack();
 }
 
@@ -344,27 +373,17 @@ function next() {
 function clearMove() {
 
     if(moveNumber>=1)  moveNumber--;
+    if(decodeMove(moveNumber)[2] === '--') {
+        moveNumber--;
+        return;
+    }
     clearRack();
     const oldNodes = document.querySelectorAll(".previous li");
     [...oldNodes].forEach(node => ul2.removeChild(node));
     reset();
     const word = decodeMove(moveNumber);
     [...word[3]].forEach(letter => addLetterInDeletion(letter));
-    if (word[4].startsWith("+") || word[4].startsWith("-")) {
-        if (word[0].slice(1,-1).replace(/_/g, ' ') == player1) {
-            let p = resultPlayer1.innerHTML;
-            p = parseInt(p) - parseInt( word[4]);
-            resultPlayer1.innerHTML = p;
-
-        } else {
-             let p = resultPlayer2.innerHTML;
-            p = parseInt(p) - parseInt( word[4]);
-            resultPlayer2.innerHTML = p;
-
-        }
-    }
-
-    
+    removePoints(word[4]);
     let xy = putCoordinates(word[2]);
     if (xy[2]) {
         x = x + xy[1] * tileWidth;
