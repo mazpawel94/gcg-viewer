@@ -179,7 +179,7 @@ const deleteLetterInDeletion = (letter) => {
 
 
 const addLetterInDeletion = (letter) => {   //cofa skreślenie - przy cofaniu ruchu
-
+    console.log("dodaje litery dla ruchu" + moveNumber + '   ' + letter);
     if(letter === '+' || letter === '0' || letter ==='.' || typeof letter === 'number')  return;
     letter = letter.replace(/[a-ząężćźżłńóś?]/, '')
     const change = [...deletionLetter].filter(e => e.classList.contains('deleted')).find(e => e.textContent === letter);
@@ -383,16 +383,17 @@ const next = () => {
 
 const clearMove = () => {
 
-    if(moveNumber>=1)  moveNumber--;
+    if(moveNumber<1)    return;
+    moveNumber--;
     if(decodeMove(moveNumber)[2] === '--') {
         moveNumber--;
         return;
     }
     clearRack();
+    const word = decodeMove(moveNumber);
     [...document.querySelectorAll(".previous li")].forEach(node => ul2.removeChild(node));
     reset();
-    const word = decodeMove(moveNumber);
-    [...word[3]].forEach(letter => addLetterInDeletion(letter));
+    
     removePoints(word[4]);
     let xy = putCoordinates(word[2]);
     if (xy[2]) {
