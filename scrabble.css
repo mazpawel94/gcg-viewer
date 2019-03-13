@@ -229,14 +229,15 @@ sub {
 .comment {
     position: absolute;
     display: flex;
+    flex-direction: column;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     background-color: #015B52;
     color: rgb(246, 203, 123);
     width: auto;
-    height: 130px;
     text-align: center;
+    padding: 5px;
     border-radius: 10px;
     box-shadow: 5px -2px 30px 1px black;
     display: none;
