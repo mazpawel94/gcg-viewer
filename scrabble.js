@@ -443,6 +443,10 @@ const readGame = (e) => {
 }
 
 document.getElementById('next').addEventListener("click", next);
+document.addEventListener('keydown', (e) => {
+    if (e.keyCode === 39)   next();
+    if (e.keyCode === 37)   clearMove();
+})
 previousButton.addEventListener("click", clearMove);
 file.addEventListener("input", readGame);
 document.body.querySelector('.deletion-show').addEventListener('click', () => deletion.classList.toggle('active'));
