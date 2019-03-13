@@ -9,10 +9,11 @@
   </head>
 
   <body>
-    <!-- <button id="complete-game">wczytaj grę</button> -->
-    <input type="file" id="file" />
-    <label for="file"><i class="fas fa-cloud-download-alt"></i> Wczytaj partię</label>
-    <a href="http://scrabble.stats.org.pl/gcg_all.php" target="_blank">Pobierz partię z bazy</a>
+    <div class="start-game">
+      <input type="file" id="file" />
+      <label for="file"><i class="fas fa-cloud-download-alt"></i> Wczytaj partię</label>
+      <a href="http://scrabble.stats.org.pl/gcg_all.php" target="_blank">Pobierz partię z bazy</a>  
+    </div>
     <div class="game">
       <section class="game-view">
         <div class="comment"><span></span><button>Zamknij</button></div>
@@ -23,7 +24,7 @@
           <div id="result2"></div>
         </div>
         <canvas> </canvas>
-        <div class="gameNavigation">
+        <div class="game-navigation">
           <button id="previous"><<<</button> <button id="next">>>></button
           ><button class="deletion-show">wykreślanka</button>
         </div>

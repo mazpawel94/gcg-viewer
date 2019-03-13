@@ -345,10 +345,12 @@ const findBlanks = (word) => {
 const clearAll = () => {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if(moveNumber) clearRack();
+    ul.innerHTML = '';
+    ul2.innerHTML = '';
     moveNumber = 0;
     resultPlayer1.innerHTML = 0;
     resultPlayer2.innerHTML = 0;
+    deletionLetter.forEach(letter => letter.classList.remove('deleted'));
     
 }
 
@@ -360,6 +362,7 @@ const showEndResult = () => {
     else
         showComment("Wynik końcowy: <br />"  + `${player1} ${parseInt(resultPlayer1.innerHTML) - pointsFromWriteOff} : ${player2} ${parseInt(resultPlayer2.innerHTML) + pointsFromWriteOff}`);
 
+    document.body.querySelector('.start-game').style.display = 'block';
     }
 
 const next = () => {
@@ -436,9 +439,7 @@ const readGame = (e) => {
         setRack();
     }
     reader.readAsText(game);
-    file.style.display = "none";
-    document.body.querySelector('label').style.display = 'none';
-    document.body.querySelector('a').style.display = 'none';
+    document.body.querySelector('.start-game').style.display = 'none';
 
 }
 

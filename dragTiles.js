@@ -1,6 +1,5 @@
 
 let active = false, startX, startY, actualDiv, ctualDivStartX, actualDivStartY, actualDivStartOrder;
-// const place = 600/7;
 let place = 75;
 if(window.innerWidth <= 720) {
 place = 50;
@@ -72,13 +71,9 @@ const touchActivateLetter = (e) => {
 const dropLetter = (e) => {
     active = false;
     e.target.style.top = "0";
-    e.target.style.left ="0";
+    e.target.style.left = "0";
     [...document.querySelectorAll('.actual li')].forEach(letter => letter.style.zIndex = 1);
 }
-
-// [...letters].forEach((div) => {
-//      div.addEventListener('mousedown', activateLetter);
-//      div.addEventListener('mouseup', dropLetter);
-// });   
+ 
 document.addEventListener('mousemove', dragLetter);
 document.addEventListener('touchmove', touchDragLetter);

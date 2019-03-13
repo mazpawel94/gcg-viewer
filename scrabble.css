@@ -45,8 +45,6 @@ body {
     text-align: center;
 }
 
-
-
 #file {
     position: absolute;
     width: 0.1px;
@@ -87,13 +85,10 @@ label {
 }
 
 a {
-    position: relative;
-    top: 5px;
-    left: 20px;
-    height: 30px;
+    display: block;
+    margin: 25px 0 0 25px;
     color: rgb(61, 68, 2);
     letter-spacing: .5px;
-    /* text-decoration: none; */
     cursor: pointer;
 }
 
@@ -109,7 +104,7 @@ canvas {
 
 }
 
-.gameNavigation {
+.game-navigation {
     display: block;
     text-align: center;
 }
@@ -357,7 +352,7 @@ sub {
     .result {
         margin: 0;
     }
-    .gameNavigation, .racks {
+    .game-navigation, .racks {
         /*        transform: translate(100%, -700%);*/
                 transform: translateY(-280px);
                 
