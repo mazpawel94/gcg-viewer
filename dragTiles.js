@@ -4,6 +4,7 @@ let place = 75;
 if(window.innerWidth <= 720) {
 place = 50;
 }
+
 const convertOrderToInt = (order) => {
     return parseInt(order.replace('px', ''));
 }
@@ -29,8 +30,8 @@ const touchDragLetter =  (e) => {
 }
 
 const reorganizeTiles = (tile, distance) => {
-    let actualOrder = convertOrderToInt(tile.style.order);
-    let orderIndex = actualDivStartOrder + Math.round((distance)/place);
+    const actualOrder = convertOrderToInt(tile.style.order);
+    const orderIndex = actualDivStartOrder + Math.round((distance)/place);
     if (orderIndex>=document.querySelectorAll('.actual li').length || orderIndex<0) return;
     if(orderIndex !== actualOrder) {
         tile.style.order = orderIndex;
@@ -42,30 +43,25 @@ const reorganizeTiles = (tile, distance) => {
     }
 }
 
-const activateLetter = (e) => {
-
-    if(e.target.classList.contains('old')) return;
+const setStartValueForActiveLetter = (letter, x, y) => {
     active = true;
-    startX = e.clientX;
-    startY = e.clientY;
-    actualDiv = e.target;
-    actualDivStartX = convertOrderToInt(e.target.style.left);
-    actualDivStartY = convertOrderToInt(e.target.style.top);
-    actualDivStartOrder = convertOrderToInt(e.target.style.order);      
-    e.target.style.zIndex='100';
+    startX = x;
+    startY = y;
+    actualDiv = letter;
+    actualDivStartX = convertOrderToInt(letter.style.left);
+    actualDivStartY = convertOrderToInt(letter.style.top);
+    actualDivStartOrder = convertOrderToInt(letter.style.order);      
+    letter.style.zIndex='100';
+}
+
+const activateLetter = (e) => {
+    if(e.target.classList.contains('old')) return;
+    setStartValueForActiveLetter(e.target, e.clientX, e.clientY);
 }
 
 const touchActivateLetter = (e) => {
-
     if(e.target.classList.contains('old')) return;
-    active = true;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    actualDiv = e.target;
-    actualDivStartX = convertOrderToInt(e.target.style.left);
-    actualDivStartY = convertOrderToInt(e.target.style.top);
-    actualDivStartOrder = convertOrderToInt(e.target.style.order);      
-    e.target.style.zIndex='100';
+    setStartValueForActiveLetter(e.target, e.touches[0].clientX, e.touches[0].clientY);
 }
 
 const dropLetter = (e) => {
