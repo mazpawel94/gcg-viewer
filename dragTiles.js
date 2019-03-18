@@ -1,8 +1,13 @@
 
 let active = false, startX, startY, actualDiv, ctualDivStartX, actualDivStartY, actualDivStartOrder;
 let place = 75;
-if(window.innerWidth <= 720) {
-place = 50;
+
+
+const changeTilePlace = () => {
+    if(window.innerWidth <= 720)
+       place = 50;
+    else
+       place = 75;
 }
 
 const convertOrderToInt = (order) => {
@@ -70,6 +75,7 @@ const dropLetter = (e) => {
     e.target.style.left = "0";
     [...document.querySelectorAll('.actual li')].forEach(letter => letter.style.zIndex = 1);
 }
- 
+changeTilePlace(); 
 document.addEventListener('mousemove', dragLetter);
 document.addEventListener('touchmove', touchDragLetter);
+window.addEventListener('resize', changeTilePlace);
