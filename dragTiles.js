@@ -1,4 +1,4 @@
-
+const rackActual = document.querySelector(".rack.actual ul");
 let active = false, startX, startY, actualDiv, ctualDivStartX, actualDivStartY, actualDivStartOrder;
 let place = 75;
 
@@ -79,3 +79,21 @@ changeTilePlace();
 document.addEventListener('mousemove', dragLetter);
 document.addEventListener('touchmove', touchDragLetter);
 window.addEventListener('resize', changeTilePlace);
+
+rackActual.addEventListener('mousedown', e => {
+    if(e.target.nodeName === 'LI')
+      activateLetter(e);
+});
+rackActual.addEventListener('touchstart', e => {
+    if(e.target.nodeName === 'LI')
+    touchActivateLetter(e);
+});
+rackActual.addEventListener('mouseup', e => {
+    if(e.target.nodeName === 'LI')
+    dropLetter(e);
+});
+rackActual.addEventListener('touchend', e => {
+    if(e.target.nodeName === 'LI')
+    dropLetter(e);
+});
+
