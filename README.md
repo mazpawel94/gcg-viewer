@@ -1,7 +1,8 @@
 # gcg-viewer
 
 http://scrabble.polanica.pl/gcg.html
-wersja demonstracyjna - nie wymaga posiadania własnych partii ani pobierania ich http://scrabble.polanica.pl/game-example.html
+
+ http://scrabble.polanica.pl/game-example.html - wersja demonstracyjna, która nie wymaga posiadania własnych partii ani pobierania ich
 
 Aplikacja internetowa umożliwiająca wygodne oglądanie ruch po ruchu partii scrabble zapisanych w formacie .gcg, z uwzględnieniem czynników istotnych do oceny jakości danego ruchu - wykreślanki oraz widoku stojaka z literami pozostałymi po wykonanym posunięciu.
 
