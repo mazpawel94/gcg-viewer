@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="scrabble.css" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133347306-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133347306-3');
+</script>
+  </head>
+
+  <body>
+    <div class="game">
+      <section class="game-view">
+        <div class="comment"><span></span><button>Zamknij</button></div>
+        <div class="result">
+          <div class="players"></div>
+          <div class="players"></div>
+          <div id="result1"></div>
+          <div id="result2"></div>
+        </div>
+        <canvas> </canvas>
+        <div class="game-navigation">
+          <button id="previous"><<<</button> <button id="next">>>></button
+          ><button class="deletion-show">wykreślanka</button>
+        </div>
+      </section>
+      <section class="players-view">
+            <div class="deletion">
+                    <div class="deletion-letter">A</div>
+                    <div class="deletion-letter">A</div>
+                    <div class="deletion-letter">A</div>
+                    <div class="deletion-letter">A</div>
+                    <div class="deletion-letter">A</div>
+                    <div class="deletion-letter">A</div>
+                    <div class="deletion-letter">A</div>
+                    <div class="deletion-letter">A</div>
+                    <div class="deletion-letter">A</div>
+                    <div class="deletion-letter">Ą</div>
+                    <div class="deletion-letter">B</div>
+                    <div class="deletion-letter">B</div>
+                    <div class="deletion-letter">C</div>
+                    <div class="deletion-letter">C</div>
+                    <div class="deletion-letter">C</div>
+                    <div class="deletion-letter">Ć</div>
+                    <div class="deletion-letter">D</div>
+                    <div class="deletion-letter">D</div>
+                    <div class="deletion-letter">D</div>
+                    <div class="deletion-letter">E</div>
+                    <div class="deletion-letter">E</div>
+                    <div class="deletion-letter">E</div>
+                    <div class="deletion-letter">E</div>
+                    <div class="deletion-letter">E</div>
+                    <div class="deletion-letter">E</div>
+                    <div class="deletion-letter">E</div>
+                    <div class="deletion-letter">Ę</div>
+                    <div class="deletion-letter">F</div>
+                    <div class="deletion-letter">G</div>
+                    <div class="deletion-letter">G</div>
+                    <div class="deletion-letter">H</div>
+                    <div class="deletion-letter">H</div>
+                    <div class="deletion-letter">I</div>
+                    <div class="deletion-letter">I</div>
+                    <div class="deletion-letter">I</div>
+                    <div class="deletion-letter">I</div>
+                    <div class="deletion-letter">I</div>
+                    <div class="deletion-letter">I</div>
+                    <div class="deletion-letter">I</div>
+                    <div class="deletion-letter">I</div>
+                    <div class="deletion-letter">J</div>
+                    <div class="deletion-letter">J</div>
+                    <div class="deletion-letter">K</div>
+                    <div class="deletion-letter">K</div>
+                    <div class="deletion-letter">K</div>
+                    <div class="deletion-letter">L</div>
+                    <div class="deletion-letter">L</div>
+                    <div class="deletion-letter">L</div>
+                    <div class="deletion-letter">Ł</div>
+                    <div class="deletion-letter">Ł</div>
+                    <div class="deletion-letter">M</div>
+                    <div class="deletion-letter">M</div>
+                    <div class="deletion-letter">M</div>
+                    <div class="deletion-letter">N</div>
+                    <div class="deletion-letter">N</div>
+                    <div class="deletion-letter">N</div>
+                    <div class="deletion-letter">N</div>
+                    <div class="deletion-letter">N</div>
+                    <div class="deletion-letter">Ń</div>
+                    <div class="deletion-letter">O</div>
+                    <div class="deletion-letter">O</div>
+                    <div class="deletion-letter">O</div>
+                    <div class="deletion-letter">O</div>
+                    <div class="deletion-letter">O</div>
+                    <div class="deletion-letter">O</div>
+                    <div class="deletion-letter">Ó</div>
+                    <div class="deletion-letter">P</div>
+                    <div class="deletion-letter">P</div>
+                    <div class="deletion-letter">P</div>
+                    <div class="deletion-letter">R</div>
+                    <div class="deletion-letter">R</div>
+                    <div class="deletion-letter">R</div>
+                    <div class="deletion-letter">R</div>
+                    <div class="deletion-letter">S</div>
+                    <div class="deletion-letter">S</div>
+                    <div class="deletion-letter">S</div>
+                    <div class="deletion-letter">S</div>
+                    <div class="deletion-letter">Ś</div>
+                    <div class="deletion-letter">T</div>
+                    <div class="deletion-letter">T</div>
+                    <div class="deletion-letter">T</div>
+                    <div class="deletion-letter">U</div>
+                    <div class="deletion-letter">U</div>
+                    <div class="deletion-letter">W</div>
+                    <div class="deletion-letter">W</div>
+                    <div class="deletion-letter">W</div>
+                    <div class="deletion-letter">W</div>
+                    <div class="deletion-letter">Y</div>
+                    <div class="deletion-letter">Y</div>
+                    <div class="deletion-letter">Y</div>
+                    <div class="deletion-letter">Y</div>
+                    <div class="deletion-letter">Z</div>
+                    <div class="deletion-letter">Z</div>
+                    <div class="deletion-letter">Z</div>
+                    <div class="deletion-letter">Z</div>
+                    <div class="deletion-letter">Z</div>
+                    <div class="deletion-letter">Ź</div>
+                    <div class="deletion-letter">Ż</div>
+                    <div class="deletion-letter"></div>
+                    <div class="deletion-letter"></div>
+                    <div class="close">x</div>
+                  </div>
+        <div class="rack actual">
+          <p class="nick"></p>
+          <ul></ul>
+        </div>
+        <div class="rack previous">
+          <p class="nick"></p>
+          <ul></ul>
+        </div>
+        
+      </section>
+    </div>
+    <footer>
+      
+      Wersja demonstracyjna prezentująca partię finałową Pucharu Polski 2017 rozegraną przez Michała Alabrudzińskiego i Dawida Pikula - pełna wersja, umożliwiająca analizę dowolnej partii, dostępna jest <a href="http://scrabble.polanica.pl/gcg.html"> tutaj</a>
+    </footer>
+    <script src="exampleGame.js"></script>
+    <script src="dragTiles.js"></script>
+    <script src="scrabbleExample.js"></script>
+    <!-- <script src="gcgGenerator.js"></script> -->
+  </body>
+</html>

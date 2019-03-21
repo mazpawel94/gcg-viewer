@@ -253,6 +253,17 @@ sub {
   margin: 10px;
 }
 
+footer {
+  padding: 15px;
+  width: 80%;
+  text-align: center;
+  margin: auto;
+}
+
+footer a {
+  display: inline;
+  margin: 0;
+}
 @keyframes game-download {
   79% {
     transform: translateX(-50%) rotate(0deg);
