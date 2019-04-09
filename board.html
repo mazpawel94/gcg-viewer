@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Plansza</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: rgb(228, 217, 217);
+      }
+      .board {
+        margin: auto auto;
+        border: 1px solid #badce9;
+        display: flex;
+        flex-wrap: wrap;
+        width: 90vh;
+        height: 90vh;
+      }
+      .field {
+        /* box-sizing: border-box; */
+        flex-basis: calc(100% / 15);
+        /* border: 1px solid #badce9; */
+        box-shadow: 0px 0px 1px 2px #badce9;
+        background-color: #2f6847;
+      }
+      .center {
+        background-color: #d7b071;
+      }
+      .w3 {
+        background-color: #c3485f;
+      }
+
+      .w2 {
+        background-color: #d7b071;
+      }
+
+      .l2 {
+        background-color: #a1cdfc;
+      }
+      .l3 {
+        background-color: #2e71bf;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board">
+      <div class="field w3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w3"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field center"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w2"></div>
+      <div class="field"></div>
+      <div class="field w3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w3"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field l2"></div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="field w3"></div>
+    </div>
+  </body>
+</html>
