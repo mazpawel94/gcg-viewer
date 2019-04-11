@@ -1,3 +1,4 @@
+"use strict";
 
 const previousButton = document.getElementById("previous");
 const previousRack = document.querySelector(".rack.previous ul");
