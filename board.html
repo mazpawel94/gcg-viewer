@@ -13,6 +13,7 @@
         background-color: black;
         display: flex;
         flex-direction: column;
+        font-family: Helvetica;
       }
       .board-wrapper {
         margin-top: 20px;
@@ -21,21 +22,39 @@
         background-color: #08763b;
         border: 3px solid rgb(34, 51, 51);
       }
-      .up-coordinate {
-        box-sizing: border-box;
-        /* background-color: #fff; */
+      .up-coordinates {
+        position: absolute;
         color: white;
         line-height: 30px;
         height: 30px;
         width: 100%;
-        z-index: 15;
-        padding-left: 55px;
-        word-spacing: 26px;
+        top: -30px;
+        font-size: 11px;
+        display: flex;
+      }
+      .coordinate-x {
+        width: calc(100% / 15);
+        text-align: center;
+      }
+      .left-coordinates {
+        position: absolute;
+        color: white;
+        height: 100%;
+        width: 30px;
+        left: -30px;
+        font-size: 11px;
+        display: flex;
+        flex-direction: column;
+      }
+      .coordinate-y {
+        height: calc(100% / 15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .board {
         position: relative;
-        margin: auto auto;
-        border: 1px solid #badce9;
+        margin: 30px auto;
         display: flex;
         flex-wrap: wrap;
         width: calc(100% - 80px);
@@ -46,30 +65,14 @@
         perspective: 1000px; */
       }
 
-      /* .board::after,
-      .board::before {
-        position: absolute;
+      .board::after {
         content: "";
-        background-color: #08763b;
-        width: 50px;
-        height: calc(100% + 50px);
-        left: 100%;
-        top: 0;
-        box-shadow: -1px 0 0 0px #badce9;
-        border-bottom: 3px solid rgb(34, 51, 51);
-        border-right: 3px solid rgb(34, 51, 51);
-      }
-
-      .board::before {
-        left: 0;
-        top: 100%;
+        position: absolute;
         width: 100%;
-        background-color: #08763b;
-        height: 50px;
-        z-index: 1;
-        box-shadow: 0px -2px 0 0px #badce9;
-        border-right: 0;
-      } */
+        height: 100%;
+        box-shadow: inset 0px 0px 1px 1px #badce9;
+        z-index: 5;
+      }
       .field {
         box-sizing: border-box;
         flex-basis: calc(100% / 15);
@@ -144,23 +147,60 @@
       }
       span {
         position: absolute;
-        font-family: Helvetica;
         font-weight: bold;
+        color: rgba(0, 0, 0, 0.657);
         width: 100%;
         height: 100%;
         z-index: 10;
         font-size: 5px;
-        letter-spacing: 0.2px;
         text-align: center;
         display: flex;
         align-items: center;
       }
+
+      /* .down {
+        box-shadow: inset 2px 2px 4px 0px rgba(0, 0, 0, 0.472),
+          inset 0px 0px 1px 1px #badce9;
+      } */
     </style>
   </head>
   <body>
     <div class="board-wrapper">
-      <div class="up-coordinate">1 2 3 4 5 6 7 8 9 0 1 2 3 4 5</div>
       <div class="board">
+        <div class="up-coordinates">
+          <div class="coordinate-x">1</div>
+          <div class="coordinate-x">2</div>
+          <div class="coordinate-x">3</div>
+          <div class="coordinate-x">4</div>
+          <div class="coordinate-x">5</div>
+          <div class="coordinate-x">6</div>
+          <div class="coordinate-x">7</div>
+          <div class="coordinate-x">8</div>
+          <div class="coordinate-x">9</div>
+          <div class="coordinate-x">10</div>
+          <div class="coordinate-x">11</div>
+          <div class="coordinate-x">12</div>
+          <div class="coordinate-x">13</div>
+          <div class="coordinate-x">14</div>
+          <div class="coordinate-x">15</div>
+        </div>
+        <div class="left-coordinates">
+          <div class="coordinate-y">A</div>
+          <div class="coordinate-y">B</div>
+          <div class="coordinate-y">C</div>
+          <div class="coordinate-y">D</div>
+          <div class="coordinate-y">E</div>
+          <div class="coordinate-y">F</div>
+          <div class="coordinate-y">G</div>
+          <div class="coordinate-y">H</div>
+          <div class="coordinate-y">I</div>
+          <div class="coordinate-y">J</div>
+          <div class="coordinate-y">K</div>
+          <div class="coordinate-y">L</div>
+          <div class="coordinate-y">M</div>
+          <div class="coordinate-y">N</div>
+          <div class="coordinate-y">O</div>
+        </div>
         <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
         <div class="field"></div>
         <div class="field"></div>
@@ -379,12 +419,12 @@
         <div class="field"></div>
         <div class="field"></div>
         <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
-        <div class="field"></div>
-        <div class="field"></div>
-        <div class="field"></div>
+        <div class="field down"></div>
+        <div class="field down"></div>
+        <div class="field down"></div>
         <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
-        <div class="field"></div>
-        <div class="field"></div>
+        <div class="field down"></div>
+        <div class="field down"></div>
         <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
       </div>
     </div>
