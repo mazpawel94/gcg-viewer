@@ -110,16 +110,19 @@
 }
 
 .w2::before,
-.w2::after {
+.w2::after,
+.w2 {
   background-color: #e8b442;
 }
 
 .l2::before,
-.l2::after {
+.l2::after,
+.l2 {
   background-color: #7590c7;
 }
 .l3::before,
-.l3::after {
+.l3::after,
+.l3 {
   background-color: #0078c1;
 }
 .center,
@@ -141,7 +144,21 @@
 }
 
 @media only screen and (max-width: 720px) {
+  .w3::before,
+  .w2::before,
+  .l3::before,
+  .l2::before,
+  .center::after,
+  .center::before,
+  .field::after {
+    display: none;
+  }
+
+  .field {
+    box-shadow: none;
+    border: 1px solid #badce9;
+  }
   .field span {
-    font-size: 2.5px;
+    display: none;
   }
 }

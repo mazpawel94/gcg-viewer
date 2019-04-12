@@ -106,6 +106,7 @@ canvas {
 .game-navigation {
   width: 100%;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
 }
@@ -385,7 +386,8 @@ footer a {
 
   .deletion-show {
     position: absolute;
-    right: 10px;
+    display: block;
+    top: -30px;
     background-color: white;
     margin-bottom: 3px;
     color: rgb(149, 31, 31);
