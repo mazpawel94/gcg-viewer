@@ -106,7 +106,9 @@ const setRack = function() {
     createTileOnRack(letter);
     deleteLetterInDeletion(letter);
   });
-  [...document.querySelectorAll(".actual li")].forEach((div, index) => div.style.order = index);
+  [...document.querySelectorAll(".actual li")].forEach(
+    (div, index) => (div.style.order = index)
+  );
 };
 
 const setNick = function(n) {
@@ -440,11 +442,12 @@ document.addEventListener("keydown", e => {
   if (e.keyCode === 37) clearMove();
 });
 file.addEventListener("input", readGame);
-document.body.querySelector(".deletion-show")
+document.body
+  .querySelector(".deletion-show")
   .addEventListener("click", () => deletion.classList.toggle("active"));
-document.querySelector(".close")
+document
+  .querySelector(".close")
   .addEventListener("click", () => deletion.classList.remove("active"));
-comment.querySelector("button")
+comment
+  .querySelector("button")
   .addEventListener("click", () => (comment.style.display = "none"));
-
- 

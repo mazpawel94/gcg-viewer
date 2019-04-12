@@ -4,23 +4,38 @@
     <meta charset="UTF-8" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./board.css" />
     <link rel="stylesheet" href="scrabble.css" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133347306-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-133347306-3"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'UA-133347306-3');
-</script>
+      gtag("config", "UA-133347306-3");
+    </script>
   </head>
 
   <body>
     <div class="start-game">
       <input type="file" id="file" />
-      <label for="file"><i class="fas fa-cloud-download-alt"></i> Wczytaj partię</label>
-      <a href="http://scrabble.stats.org.pl/gcg_all.php" target="_blank">Pobierz partię z bazy</a>  
+      <label for="file"
+        ><i class="fas fa-cloud-download-alt"></i> Wczytaj partię</label
+      >
+      <a href="http://scrabble.stats.org.pl/gcg_all.php" target="_blank"
+        >Pobierz partię z bazy</a
+      >
     </div>
     <div class="game">
       <section class="game-view">
@@ -31,116 +46,381 @@
           <div id="result1"></div>
           <div id="result2"></div>
         </div>
-        <canvas> </canvas>
+
+        <div class="board-wrapper">
+          <canvas> </canvas>
+          <div class="board">
+            <div class="up-coordinates">
+              <div class="coordinate-x">1</div>
+              <div class="coordinate-x">2</div>
+              <div class="coordinate-x">3</div>
+              <div class="coordinate-x">4</div>
+              <div class="coordinate-x">5</div>
+              <div class="coordinate-x">6</div>
+              <div class="coordinate-x">7</div>
+              <div class="coordinate-x">8</div>
+              <div class="coordinate-x">9</div>
+              <div class="coordinate-x">10</div>
+              <div class="coordinate-x">11</div>
+              <div class="coordinate-x">12</div>
+              <div class="coordinate-x">13</div>
+              <div class="coordinate-x">14</div>
+              <div class="coordinate-x">15</div>
+            </div>
+            <div class="left-coordinates">
+              <div class="coordinate-y">A</div>
+              <div class="coordinate-y">B</div>
+              <div class="coordinate-y">C</div>
+              <div class="coordinate-y">D</div>
+              <div class="coordinate-y">E</div>
+              <div class="coordinate-y">F</div>
+              <div class="coordinate-y">G</div>
+              <div class="coordinate-y">H</div>
+              <div class="coordinate-y">I</div>
+              <div class="coordinate-y">J</div>
+              <div class="coordinate-y">K</div>
+              <div class="coordinate-y">L</div>
+              <div class="coordinate-y">M</div>
+              <div class="coordinate-y">N</div>
+              <div class="coordinate-y">O</div>
+            </div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field center"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field down"></div>
+            <div class="field down"></div>
+            <div class="field down"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field down"></div>
+            <div class="field down"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+          </div>
+        </div>
+
         <div class="game-navigation">
           <button id="previous"><<<</button> <button id="next">>>></button
           ><button class="deletion-show">wykreślanka</button>
         </div>
       </section>
       <section class="players-view">
-            <div class="deletion">
-                    <div class="deletion-letter">A</div>
-                    <div class="deletion-letter">A</div>
-                    <div class="deletion-letter">A</div>
-                    <div class="deletion-letter">A</div>
-                    <div class="deletion-letter">A</div>
-                    <div class="deletion-letter">A</div>
-                    <div class="deletion-letter">A</div>
-                    <div class="deletion-letter">A</div>
-                    <div class="deletion-letter">A</div>
-                    <div class="deletion-letter">Ą</div>
-                    <div class="deletion-letter">B</div>
-                    <div class="deletion-letter">B</div>
-                    <div class="deletion-letter">C</div>
-                    <div class="deletion-letter">C</div>
-                    <div class="deletion-letter">C</div>
-                    <div class="deletion-letter">Ć</div>
-                    <div class="deletion-letter">D</div>
-                    <div class="deletion-letter">D</div>
-                    <div class="deletion-letter">D</div>
-                    <div class="deletion-letter">E</div>
-                    <div class="deletion-letter">E</div>
-                    <div class="deletion-letter">E</div>
-                    <div class="deletion-letter">E</div>
-                    <div class="deletion-letter">E</div>
-                    <div class="deletion-letter">E</div>
-                    <div class="deletion-letter">E</div>
-                    <div class="deletion-letter">Ę</div>
-                    <div class="deletion-letter">F</div>
-                    <div class="deletion-letter">G</div>
-                    <div class="deletion-letter">G</div>
-                    <div class="deletion-letter">H</div>
-                    <div class="deletion-letter">H</div>
-                    <div class="deletion-letter">I</div>
-                    <div class="deletion-letter">I</div>
-                    <div class="deletion-letter">I</div>
-                    <div class="deletion-letter">I</div>
-                    <div class="deletion-letter">I</div>
-                    <div class="deletion-letter">I</div>
-                    <div class="deletion-letter">I</div>
-                    <div class="deletion-letter">I</div>
-                    <div class="deletion-letter">J</div>
-                    <div class="deletion-letter">J</div>
-                    <div class="deletion-letter">K</div>
-                    <div class="deletion-letter">K</div>
-                    <div class="deletion-letter">K</div>
-                    <div class="deletion-letter">L</div>
-                    <div class="deletion-letter">L</div>
-                    <div class="deletion-letter">L</div>
-                    <div class="deletion-letter">Ł</div>
-                    <div class="deletion-letter">Ł</div>
-                    <div class="deletion-letter">M</div>
-                    <div class="deletion-letter">M</div>
-                    <div class="deletion-letter">M</div>
-                    <div class="deletion-letter">N</div>
-                    <div class="deletion-letter">N</div>
-                    <div class="deletion-letter">N</div>
-                    <div class="deletion-letter">N</div>
-                    <div class="deletion-letter">N</div>
-                    <div class="deletion-letter">Ń</div>
-                    <div class="deletion-letter">O</div>
-                    <div class="deletion-letter">O</div>
-                    <div class="deletion-letter">O</div>
-                    <div class="deletion-letter">O</div>
-                    <div class="deletion-letter">O</div>
-                    <div class="deletion-letter">O</div>
-                    <div class="deletion-letter">Ó</div>
-                    <div class="deletion-letter">P</div>
-                    <div class="deletion-letter">P</div>
-                    <div class="deletion-letter">P</div>
-                    <div class="deletion-letter">R</div>
-                    <div class="deletion-letter">R</div>
-                    <div class="deletion-letter">R</div>
-                    <div class="deletion-letter">R</div>
-                    <div class="deletion-letter">S</div>
-                    <div class="deletion-letter">S</div>
-                    <div class="deletion-letter">S</div>
-                    <div class="deletion-letter">S</div>
-                    <div class="deletion-letter">Ś</div>
-                    <div class="deletion-letter">T</div>
-                    <div class="deletion-letter">T</div>
-                    <div class="deletion-letter">T</div>
-                    <div class="deletion-letter">U</div>
-                    <div class="deletion-letter">U</div>
-                    <div class="deletion-letter">W</div>
-                    <div class="deletion-letter">W</div>
-                    <div class="deletion-letter">W</div>
-                    <div class="deletion-letter">W</div>
-                    <div class="deletion-letter">Y</div>
-                    <div class="deletion-letter">Y</div>
-                    <div class="deletion-letter">Y</div>
-                    <div class="deletion-letter">Y</div>
-                    <div class="deletion-letter">Z</div>
-                    <div class="deletion-letter">Z</div>
-                    <div class="deletion-letter">Z</div>
-                    <div class="deletion-letter">Z</div>
-                    <div class="deletion-letter">Z</div>
-                    <div class="deletion-letter">Ź</div>
-                    <div class="deletion-letter">Ż</div>
-                    <div class="deletion-letter"></div>
-                    <div class="deletion-letter"></div>
-                    <div class="close">x</div>
-                  </div>
+        <div class="deletion">
+          <div class="deletion-letter">A</div>
+          <div class="deletion-letter">A</div>
+          <div class="deletion-letter">A</div>
+          <div class="deletion-letter">A</div>
+          <div class="deletion-letter">A</div>
+          <div class="deletion-letter">A</div>
+          <div class="deletion-letter">A</div>
+          <div class="deletion-letter">A</div>
+          <div class="deletion-letter">A</div>
+          <div class="deletion-letter">Ą</div>
+          <div class="deletion-letter">B</div>
+          <div class="deletion-letter">B</div>
+          <div class="deletion-letter">C</div>
+          <div class="deletion-letter">C</div>
+          <div class="deletion-letter">C</div>
+          <div class="deletion-letter">Ć</div>
+          <div class="deletion-letter">D</div>
+          <div class="deletion-letter">D</div>
+          <div class="deletion-letter">D</div>
+          <div class="deletion-letter">E</div>
+          <div class="deletion-letter">E</div>
+          <div class="deletion-letter">E</div>
+          <div class="deletion-letter">E</div>
+          <div class="deletion-letter">E</div>
+          <div class="deletion-letter">E</div>
+          <div class="deletion-letter">E</div>
+          <div class="deletion-letter">Ę</div>
+          <div class="deletion-letter">F</div>
+          <div class="deletion-letter">G</div>
+          <div class="deletion-letter">G</div>
+          <div class="deletion-letter">H</div>
+          <div class="deletion-letter">H</div>
+          <div class="deletion-letter">I</div>
+          <div class="deletion-letter">I</div>
+          <div class="deletion-letter">I</div>
+          <div class="deletion-letter">I</div>
+          <div class="deletion-letter">I</div>
+          <div class="deletion-letter">I</div>
+          <div class="deletion-letter">I</div>
+          <div class="deletion-letter">I</div>
+          <div class="deletion-letter">J</div>
+          <div class="deletion-letter">J</div>
+          <div class="deletion-letter">K</div>
+          <div class="deletion-letter">K</div>
+          <div class="deletion-letter">K</div>
+          <div class="deletion-letter">L</div>
+          <div class="deletion-letter">L</div>
+          <div class="deletion-letter">L</div>
+          <div class="deletion-letter">Ł</div>
+          <div class="deletion-letter">Ł</div>
+          <div class="deletion-letter">M</div>
+          <div class="deletion-letter">M</div>
+          <div class="deletion-letter">M</div>
+          <div class="deletion-letter">N</div>
+          <div class="deletion-letter">N</div>
+          <div class="deletion-letter">N</div>
+          <div class="deletion-letter">N</div>
+          <div class="deletion-letter">N</div>
+          <div class="deletion-letter">Ń</div>
+          <div class="deletion-letter">O</div>
+          <div class="deletion-letter">O</div>
+          <div class="deletion-letter">O</div>
+          <div class="deletion-letter">O</div>
+          <div class="deletion-letter">O</div>
+          <div class="deletion-letter">O</div>
+          <div class="deletion-letter">Ó</div>
+          <div class="deletion-letter">P</div>
+          <div class="deletion-letter">P</div>
+          <div class="deletion-letter">P</div>
+          <div class="deletion-letter">R</div>
+          <div class="deletion-letter">R</div>
+          <div class="deletion-letter">R</div>
+          <div class="deletion-letter">R</div>
+          <div class="deletion-letter">S</div>
+          <div class="deletion-letter">S</div>
+          <div class="deletion-letter">S</div>
+          <div class="deletion-letter">S</div>
+          <div class="deletion-letter">Ś</div>
+          <div class="deletion-letter">T</div>
+          <div class="deletion-letter">T</div>
+          <div class="deletion-letter">T</div>
+          <div class="deletion-letter">U</div>
+          <div class="deletion-letter">U</div>
+          <div class="deletion-letter">W</div>
+          <div class="deletion-letter">W</div>
+          <div class="deletion-letter">W</div>
+          <div class="deletion-letter">W</div>
+          <div class="deletion-letter">Y</div>
+          <div class="deletion-letter">Y</div>
+          <div class="deletion-letter">Y</div>
+          <div class="deletion-letter">Y</div>
+          <div class="deletion-letter">Z</div>
+          <div class="deletion-letter">Z</div>
+          <div class="deletion-letter">Z</div>
+          <div class="deletion-letter">Z</div>
+          <div class="deletion-letter">Z</div>
+          <div class="deletion-letter">Ź</div>
+          <div class="deletion-letter">Ż</div>
+          <div class="deletion-letter"></div>
+          <div class="deletion-letter"></div>
+          <div class="close">x</div>
+        </div>
         <div class="rack actual">
           <p class="nick"></p>
           <ul></ul>
@@ -149,7 +429,6 @@
           <p class="nick"></p>
           <ul></ul>
         </div>
-        
       </section>
     </div>
     <script src="dragTiles.js"></script>
