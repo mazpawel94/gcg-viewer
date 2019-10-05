@@ -1,6 +1,6 @@
 .board-wrapper {
   margin-top: 20px;
-  width: 650px;
+  min-width: 650px;
   height: 650px;
   background-color: #08763b;
   border: 3px solid rgb(34, 51, 51);

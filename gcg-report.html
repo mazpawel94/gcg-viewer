@@ -5,9 +5,350 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <link rel="stylesheet" href="scrabble.css">
+    <link rel="stylesheet" href="board.css">
+    <style>
+        main {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .evaluate-panel {
+                background-color: rgba(255, 255, 255, 0.602);
+                width: 400px;
+                height: 400px;
+                border-radius: 10px;
+        }
+        .evaluate-panel h3 {
+            display: block;
+            height: 58px;
+            line-height: 58px;
+            margin: 0;
+            border-bottom: 2px #918c04 solid;
+            display: flex;
+        }
+        .nick {
+            width: 40%;
+            margin: 0;
+        }
+        .letters {
+            width: 40%;
+            text-align: center;
+        }
+        .points  {
+            width: 20%;
+        }
+        .possibility {
+            display: flex;
+            height: 30px;
+            line-height: 30px;
+        }
+        .possibility:nth-of-type(2n) {
+            background-color: rgba(119,97,97,.342);
+        }
+        .possibility.selected {
+            background-color: rgba(68, 231, 39, 0.89);
+        }
+        .evaluate {
+            width: 15%;
+        }
+        .coordinates {
+            width: 10%;
+        }
+        .word {
+            width: 50%;
+        }
+        .move_points {
+            width: 10%;
+        }
+        .percent {
+            width: 15%;
+        }
+
+    </style>
   </head>
   <body>
     <input type="file" name="report-file" id="report-file" />
+    <main>
+        <div class="board-wrapper">
+            <canvas> </canvas>
+            <div class="board">
+            <div class="up-coordinates">
+                <div class="coordinate-x">1</div>
+                <div class="coordinate-x">2</div>
+                <div class="coordinate-x">3</div>
+                <div class="coordinate-x">4</div>
+                <div class="coordinate-x">5</div>
+                <div class="coordinate-x">6</div>
+                <div class="coordinate-x">7</div>
+                <div class="coordinate-x">8</div>
+                <div class="coordinate-x">9</div>
+                <div class="coordinate-x">10</div>
+                <div class="coordinate-x">11</div>
+                <div class="coordinate-x">12</div>
+                <div class="coordinate-x">13</div>
+                <div class="coordinate-x">14</div>
+                <div class="coordinate-x">15</div>
+            </div>
+            <div class="left-coordinates">
+                <div class="coordinate-y">A</div>
+                <div class="coordinate-y">B</div>
+                <div class="coordinate-y">C</div>
+                <div class="coordinate-y">D</div>
+                <div class="coordinate-y">E</div>
+                <div class="coordinate-y">F</div>
+                <div class="coordinate-y">G</div>
+                <div class="coordinate-y">H</div>
+                <div class="coordinate-y">I</div>
+                <div class="coordinate-y">J</div>
+                <div class="coordinate-y">K</div>
+                <div class="coordinate-y">L</div>
+                <div class="coordinate-y">M</div>
+                <div class="coordinate-y">N</div>
+                <div class="coordinate-y">O</div>
+            </div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field center"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l3"><span>POTRÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w2"><span>PODWÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            <div class="field down"></div>
+            <div class="field down"></div>
+            <div class="field down"></div>
+            <div class="field l2"><span>PODWÓJNA PREMIA LITEROWA</span></div>
+            <div class="field down"></div>
+            <div class="field down"></div>
+            <div class="field w3"><span>POTRÓJNA PREMIA SŁOWNA</span></div>
+            </div>
+        </div>
+        <div class="evaluate-panel">
+            <h3>
+                <div class="nick"></div>
+                <div class="letters"></div>
+                <div class="points"></div>
+            </h3>
+            <div class="possibility"></div>
+        </div>
+    </main>
+    <div class="rack actual">
+        <p class="nick"></p>
+        <ul></ul>
+    </div>
+    <script src="./dragTiles.js"></script>
     <script src="./gameReport.js"></script>
   </body>
 </html>
