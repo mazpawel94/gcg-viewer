@@ -6,14 +6,47 @@ const ctx = canvas.getContext("2d");
 
 
 let player1, player2;
-
 let x = 23;
 let y = 23; //coordinates
 const tileWidth = 38;
-
-
+const points = {
+    A: 1,
+    Ą: 5,
+    B: 3,
+    C: 2,
+    Ć: 6,
+    D: 2,
+    E: 1,
+    Ę: 5,
+    F: 5,
+    G: 3,
+    H: 3,
+    I: 1,
+    J: 3,
+    K: 2,
+    L: 2,
+    Ł: 3,
+    M: 2,
+    N: 1,
+    Ń: 7,
+    O: 1,
+    Ó: 5,
+    P: 2,
+    R: 1,
+    S: 1,
+    Ś: 5,
+    T: 2,
+    U: 3,
+    W: 1,
+    Y: 2,
+    Z: 1,
+    Ź: 9,
+    Ż: 5
+};
 const moves = [];
-let moveNumber = 0;
+let moveNumber = 0,
+    selectedOption;
+
 const regActualPlayer = /->(\s*.*)/gi;
 const regPossibilityMoves = /((best)|(\d+\.\d*))(.*)/gi;
 const allRegex = /(->(\s*.*))| ((best)|(\d+\.\d*))(.*)/gi;
@@ -27,11 +60,91 @@ const setCanvas = () => {
 }
 setCanvas();
 
+const reset = () => {
+    x = 23;
+    y = 23;
+};
+const letterToNumber = a => {
+    if (!a) return;
+    if (a.toUpperCase() == "A") return 0;
+    if (a.toUpperCase() == "B") return 1;
+    if (a.toUpperCase() == "C") return 2;
+    if (a.toUpperCase() == "D") return 3;
+    if (a.toUpperCase() == "E") return 4;
+    if (a.toUpperCase() == "F") return 5;
+    if (a.toUpperCase() == "G") return 6;
+    if (a.toUpperCase() == "H") return 7;
+    if (a.toUpperCase() == "I") return 8;
+    if (a.toUpperCase() == "J") return 9;
+    if (a.toUpperCase() == "K") return 10;
+    if (a.toUpperCase() == "L") return 11;
+    if (a.toUpperCase() == "M") return 12;
+    if (a.toUpperCase() == "N") return 13;
+    if (a.toUpperCase() == "O") return 14;
+};
+
+
+const putStartCoordinates = (xy) => {
+    let horizontal = true;
+    if (xy[2]) {
+        x = x + xy[1] * tileWidth;
+        y = y + xy[0] * tileWidth;
+    } else {
+        x = x + xy[0] * tileWidth;
+        y = y + xy[1] * tileWidth;
+        horizontal = false;
+    }
+    return [x, y, horizontal];
+};
+
+const putCoordinates = function (coordinates) {
+    const lastCoordinate = coordinates.slice(-1);
+    // horizontal
+    if (isNaN(lastCoordinate))
+        return [coordinates.slice(0, -1) - 1, letterToNumber(lastCoordinate), 1];
+    // vertical
+    else return [letterToNumber(coordinates[0]), coordinates.slice(1) - 1, 0];
+};
+
+const drawLetterOnBoard = (newMove, x, y, letter) => {
+    newMove ? ctx.fillStyle = "#E8E847" : ctx.fillStyle = "#F8E8C7";
+    ctx.fillRect(x + 1, y + 1, 36, 36);
+    ctx.fillStyle = "#015B52";
+    ctx.font = "10px sans-serif";
+    let point = points[letter] || "";
+    if (point == "") ctx.fillStyle = "rgba(1, 91, 82, 0.2)";
+    ctx.fillText(point, x + 30, y + 35);
+    ctx.font = "bold 28px sans-serif";
+    if (letter.toUpperCase() == "W")
+        ctx.fillText(letter.toUpperCase(), x + 6, y + 28);
+    else if (letter.toUpperCase() == "I")
+        ctx.fillText(letter.toUpperCase(), x + 16, y + 28);
+    else ctx.fillText(letter.toUpperCase(), x + 10, y + 28);
+};
+
+const drawLettersOnBoard = (option) => {
+    const word = option.word.replace(/\(|\)/g, '');
+    if (option.coordinates === 'xch' || option.coordinates === '*xch') return;
+    const xy = putStartCoordinates(putCoordinates(option.coordinates.replace('*', '')));
+    let x = xy[0];
+    let y = xy[1];
+    let horizontal = xy[2];
+    [...word].forEach(letter => {
+        drawLetterOnBoard(true, x, y, letter);
+        if (horizontal)
+            x += tileWidth;
+        else
+            y += tileWidth;
+    })
+    reset();
+};
 const createPossibilityDiv = (option) => {
     const newPosiibility = document.createElement("div");
     newPosiibility.classList.add('possibility');
-    console.log(option.coordinates[0]);
-    option.coordinates[0] === '*' ? newPosiibility.classList.add('selected') : '';
+    if (option.coordinates[0] === '*') {
+        newPosiibility.classList.add('selected');
+        drawLettersOnBoard(option);
+    }
     evaluatePanel.appendChild(newPosiibility);
     Object.entries(option).forEach(
         ([key, value]) => {
@@ -52,6 +165,33 @@ const showPossibilities = () => {
     moves[i].choiceOptions.forEach(option => createPossibilityDiv(option));
 }
 
+const clearMove = (option) => {
+    // if (moveNumber < 1) return;
+    // moveNumber--;
+    reset();
+
+    let xy = putCoordinates(option.coordinates.replace('*', ''));
+    if (xy[2]) {
+        x = x + xy[1] * tileWidth;
+        y = y + xy[0] * tileWidth;
+    } else {
+        x = x + xy[0] * tileWidth;
+        y = y + xy[1] * tileWidth;
+    }
+    const word = option.word.replace(/\(.\)/g, '.');
+    [...word].forEach(letter => {
+        if (letter == ".") {
+            if (xy[2]) x += tileWidth;
+            else y += tileWidth;
+            return;
+        }
+        ctx.clearRect(x, y, tileWidth, tileWidth);
+        if (xy[2]) x += tileWidth;
+        else y += tileWidth;
+    })
+};
+
+
 const readReport = e => {
     const game = e.target.files[0];
     if (!game) return 0;
@@ -61,7 +201,6 @@ const readReport = e => {
         const lines = content.match(allRegex);
         lines.forEach((line, i) => {
             const atoms = lines[i].replace(/\*/g, ' *').split(/\s+/).filter(el => el !== '');
-            console.log(atoms);
             if (lines[i].match(regActualPlayer)) {
                 moves.push({
                     index: moves.length,
@@ -83,13 +222,17 @@ const readReport = e => {
                 });
             }
         })
+        showPossibilities();
     };
     reader.readAsText(game);
 };
 
 document.addEventListener('keydown', (e) => {
     if (e.keyCode === 39) moveNumber++;
-    else if (e.keyCode === 37) moveNumber > 0 ? moveNumber-- : moveNumber = 0;
+    else if (e.keyCode === 37) {
+        clearMove(moves[moveNumber].choiceOptions.find(option => (/\*/).test(option.coordinates)));
+        moveNumber > 0 ? moveNumber-- : moveNumber = 0;
+    }
     else return;
     showPossibilities();
 })
