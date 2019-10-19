@@ -45,7 +45,8 @@ const points = {
 };
 const moves = [];
 let moveNumber = 0,
-    selectedOption;
+    selectedOption,
+    reverse = false;
 
 const regActualPlayer = /->(\s*.*)/gi;
 const regPossibilityMoves = /((best)|(\d+\.\d*))(.*)/gi;
@@ -106,6 +107,8 @@ const putCoordinates = function (coordinates) {
     else return [letterToNumber(coordinates[0]), coordinates.slice(1) - 1, 0];
 };
 
+const findSelectedOption = index => moves[index].choiceOptions.find(option => (/\*/).test(option.coordinates));
+
 const drawLetterOnBoard = (newMove, x, y, letter) => {
     newMove ? ctx.fillStyle = "#E8E847" : ctx.fillStyle = "#F8E8C7";
     ctx.fillRect(x + 1, y + 1, 36, 36);
@@ -122,15 +125,35 @@ const drawLetterOnBoard = (newMove, x, y, letter) => {
     else ctx.fillText(letter.toUpperCase(), x + 10, y + 28);
 };
 
-const drawLettersOnBoard = (option) => {
-    const word = option.word.replace(/\(|\)/g, '');
+const drawLettersOnBoard = (option, newMove) => {
+    let word = option.word;
+    if (!newMove)
+        word = word.replace(/\(|\)/g, '');
+    else {
+        word = word.split('');
+        while (word.indexOf('(') !== -1) {
+            word.forEach((letter, index) => {
+                if (word.indexOf('(') < index && word.indexOf(')') > index)
+                    word[index] = '.';
+            })
+            word[word.indexOf('(')] = '';
+            word[word.indexOf(')')] = '';
+        }
+        word = word.join('');
+    }
     if (option.coordinates === 'xch' || option.coordinates === '*xch') return;
     const xy = putStartCoordinates(putCoordinates(option.coordinates.replace('*', '')));
     let x = xy[0];
     let y = xy[1];
     let horizontal = xy[2];
     [...word].forEach(letter => {
-        drawLetterOnBoard(true, x, y, letter);
+        if (letter == ".") {
+            //. to litera leżąca na planszy, nie jest rysowana, idziemy dalej pionowo lub poziomo
+            if (horizontal) x += tileWidth;
+            else y += tileWidth;
+            return;
+        }
+        drawLetterOnBoard(newMove, x, y, letter);
         if (horizontal)
             x += tileWidth;
         else
@@ -143,7 +166,7 @@ const createPossibilityDiv = (option) => {
     newPosiibility.classList.add('possibility');
     if (option.coordinates[0] === '*') {
         newPosiibility.classList.add('selected');
-        drawLettersOnBoard(option);
+        reverse ? '' : drawLettersOnBoard(option, true);
     }
     evaluatePanel.appendChild(newPosiibility);
     Object.entries(option).forEach(
@@ -178,7 +201,10 @@ const clearMove = (option) => {
         x = x + xy[0] * tileWidth;
         y = y + xy[1] * tileWidth;
     }
-    const word = option.word.replace(/\(.\)/g, '.');
+
+    let word = option.word;
+    (word.match(/\([\wąęćłńóśżź]*\)/gi) || []).forEach(e => word = word.replace(e, '.'.repeat(e.length - 2)));
+
     [...word].forEach(letter => {
         if (letter == ".") {
             if (xy[2]) x += tileWidth;
@@ -228,9 +254,14 @@ const readReport = e => {
 };
 
 document.addEventListener('keydown', (e) => {
-    if (e.keyCode === 39) moveNumber++;
+    if (e.keyCode === 39) {
+        reverse = false;
+        drawLettersOnBoard(findSelectedOption(moveNumber), false);
+        moveNumber++;
+    }
     else if (e.keyCode === 37) {
-        clearMove(moves[moveNumber].choiceOptions.find(option => (/\*/).test(option.coordinates)));
+        reverse = true;
+        clearMove(findSelectedOption(moveNumber));
         moveNumber > 0 ? moveNumber-- : moveNumber = 0;
     }
     else return;
